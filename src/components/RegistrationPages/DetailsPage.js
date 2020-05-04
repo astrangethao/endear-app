@@ -23,7 +23,6 @@ class DetailsPage extends Component {
           <input
             placeholder="How would your friends describe you?"
             type="text"
-            multiline
           />
         </div>
         <div>

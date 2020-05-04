@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import { Button } from "@material-ui/core";
 import Footer from "../Footer/Footer";
+import Nav from "../Nav/Nav";
 
 import "./LandingPage.css";
 
@@ -11,59 +12,67 @@ class LandingPage extends Component {
     heading: "The dating app for people who hate dating apps.",
   };
 
-  onLogin = (event) => {
-    this.props.history.push("/login");
+  onRegister = (event) => {
+    this.props.history.push("/registration");
   };
 
   render() {
     return (
-      <div className="container">
-        <h2>{this.state.heading}</h2>
+      <div>
+        <Nav />
+        <div>
+          <h2>{this.state.heading}</h2>
 
-        <div className="grid">
-          <div className="grid-col grid-col_8">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-              id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra
-              lacus ut ex molestie blandit. Etiam et turpis sit amet risus
-              mollis interdum. Suspendisse et justo vitae metus bibendum
-              fringilla sed sed justo. Aliquam sollicitudin dapibus lectus,
-              vitae consequat odio elementum eget. Praesent efficitur eros vitae
-              nunc interdum, eu interdum justo facilisis. Sed pulvinar nulla ac
-              dignissim efficitur. Quisque eget eros metus. Vestibulum bibendum
-              fringilla nibh a luctus. Duis a sapien metus.
-            </p>
+          <div className="grid">
+            <div className="grid-col grid-col_8">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Curabitur id felis metus. Vestibulum et pulvinar tortor. Morbi
+                pharetra lacus ut ex molestie blandit. Etiam et turpis sit amet
+                risus mollis interdum. Suspendisse et justo vitae metus bibendum
+                fringilla sed sed justo. Aliquam sollicitudin dapibus lectus,
+                vitae consequat odio elementum eget. Praesent efficitur eros
+                vitae nunc interdum, eu interdum justo facilisis. Sed pulvinar
+                nulla ac dignissim efficitur. Quisque eget eros metus.
+                Vestibulum bibendum fringilla nibh a luctus. Duis a sapien
+                metus.
+              </p>
 
-            <p>
-              Praesent consectetur orci dui, id elementum eros facilisis id. Sed
-              id dolor in augue porttitor faucibus eget sit amet ante. Nunc
-              consectetur placerat pharetra. Aenean gravida ex ut erat commodo,
-              ut finibus metus facilisis. Nullam eget lectus non urna rhoncus
-              accumsan quis id massa. Curabitur sit amet dolor nisl. Proin
-              euismod, augue at condimentum rhoncus, massa lorem semper lacus,
-              sed lobortis augue mi vel felis. Duis ultrices sapien at est
-              convallis congue.
-            </p>
+              <p>
+                Praesent consectetur orci dui, id elementum eros facilisis id.
+                Sed id dolor in augue porttitor faucibus eget sit amet ante.
+                Nunc consectetur placerat pharetra. Aenean gravida ex ut erat
+                commodo, ut finibus metus facilisis. Nullam eget lectus non urna
+                rhoncus accumsan quis id massa. Curabitur sit amet dolor nisl.
+                Proin euismod, augue at condimentum rhoncus, massa lorem semper
+                lacus, sed lobortis augue mi vel felis. Duis ultrices sapien at
+                est convallis congue.
+              </p>
 
-            <p>
-              Fusce porta diam ac tortor elementum, ut imperdiet metus volutpat.
-              Suspendisse posuere dapibus maximus. Aliquam vitae felis libero.
-              In vehicula sapien at semper ultrices. Vivamus sed feugiat libero.
-              Sed sagittis neque id diam euismod, ut egestas felis ultricies.
-              Nullam non fermentum mauris. Sed in enim ac turpis faucibus
-              pretium in sit amet nisi.
-            </p>
+              <p>
+                Fusce porta diam ac tortor elementum, ut imperdiet metus
+                volutpat. Suspendisse posuere dapibus maximus. Aliquam vitae
+                felis libero. In vehicula sapien at semper ultrices. Vivamus sed
+                feugiat libero. Sed sagittis neque id diam euismod, ut egestas
+                felis ultricies. Nullam non fermentum mauris. Sed in enim ac
+                turpis faucibus pretium in sit amet nisi.
+              </p>
+            </div>
+            <div>
+              <img src="couple.jpg" alt="couple" />
+            </div>
+            <div className="grid-col grid-col_8">
+              <Button
+                className="btn "
+                color="primary"
+                onClick={this.onRegister}
+              >
+                Join Endear
+              </Button>
+            </div>
           </div>
-          <div>
-            <img src="couple.jpg" alt="image" />
-          </div>
-          <div className="grid-col grid-col_8">
-            <Button className="btn " color="primary" onClick={this.onLogin}>
-              Join Endear
-            </Button>
-          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
     );
   }

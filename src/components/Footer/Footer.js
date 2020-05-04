@@ -9,26 +9,24 @@ import { Link } from "react-router-dom";
 
 const Footer = () => (
   <footer>
-    <div>
-      <div>
-        <h1>Endear</h1>
-      </div>
-      <div className="footer-nav-links">
-        <h3>Contact</h3>
-      </div>
-      <div className="footer-nav-links">
-        <Link to="/about">
-          <h3>About</h3>
-        </Link>
-      </div>
-      <div className="footer-nav-links">
-        <h3>Tips</h3>
-      </div>
-      <div className="footer-nav-links">
-        <h3>Follow</h3>
-      </div>
+    <div className="footer-div">
+      <ul className="footer-right">
+        <li>
+          <a href="#">Contact</a>
+        </li>
+        <li>
+          <Link to="/about">
+            <a href="#">About</a>
+          </Link>
+        </li>
+        <li>
+          <a href="#">Tips</a>
+        </li>
+        <li>
+          <a href="#">Follow</a>
+        </li>
+      </ul>
     </div>
-    &copy; Prime Digital Academy
   </footer>
 );
 
