@@ -18,6 +18,9 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import NamePage from "../RegistrationPages/NamePage";
+import GenderPage from "../RegistrationPages/GenderPage";
+import DobPage from "../RegistrationPages/DobPage";
 
 import "./App.css";
 
@@ -38,6 +41,9 @@ class App extends Component {
             This is a route anyone can see, no login necessary */}
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/home" component={LandingPage} />
+            <Route exact path="/name" component={NamePage} />
+            <Route exact path="/gender" component={GenderPage} />
+            <Route exact path="/dob" component={DobPage} />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
