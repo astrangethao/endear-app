@@ -21,6 +21,9 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import NamePage from "../RegistrationPages/NamePage";
 import GenderPage from "../RegistrationPages/GenderPage";
 import DobPage from "../RegistrationPages/DobPage";
+import LocationPage from "../RegistrationPages/LocationPage";
+import PhonePage from "../RegistrationPages/PhonePage";
+import InterestPage from "../RegistrationPages/InterestPage";
 
 import "./App.css";
 
@@ -44,6 +47,9 @@ class App extends Component {
             <Route exact path="/name" component={NamePage} />
             <Route exact path="/gender" component={GenderPage} />
             <Route exact path="/dob" component={DobPage} />
+            <Route exact path="/location" component={LocationPage} />
+            <Route exact path="/phone" component={PhonePage} />
+            <Route exact path="/interest" component={InterestPage} />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
