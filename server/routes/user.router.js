@@ -81,4 +81,21 @@ router.put("/gender/:id", (req, res) => {
     });
 });
 
+router.put("/dob/:id", (req, res) => {
+  const userId = req.params.id;
+  //EXPECTED REQUEST DATA STRUCTURE
+  const newUser = req.body;
+  console.log("PUT:", userId, newUser);
+
+  const queryText = `UPDATE "user_account" SET "dob"= $1 WHERE "id" = $2;`;
+
+  pool
+    .query(queryText, [newUser.dob, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

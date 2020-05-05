@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
 import "./RegistrationPages.css";
+import { connect } from "react-redux";
+import mapStoreToProps from "../../redux/mapStoreToProps";
 
 class DobPage extends Component {
   state = {
@@ -47,4 +49,4 @@ class DobPage extends Component {
   }
 }
 
-export default DobPage;
+export default connect(mapStoreToProps)(DobPage);

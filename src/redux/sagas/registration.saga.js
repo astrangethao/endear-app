@@ -60,10 +60,26 @@ function* registerGender(action) {
   }
 }
 
+function* registerDob(action) {
+  try {
+    // passes the first name and last name from the payload to the server
+    yield axios.put(`api/user/dob/${action.payload.id}`, {
+      dob: action.payload.dob,
+    });
+
+    //update to show step 2
+    // yield put({ type: "SET_TO_REGISTER_DOB" });
+  } catch (error) {
+    console.log("Error with user dob registration:", error);
+    yield put({ type: "REGISTRATION_FAILED" });
+  }
+}
+
 function* registrationSaga() {
   yield takeLatest("REGISTER", registerUser);
   yield takeLatest("REGISTER_NAME", registerName);
   yield takeLatest("REGISTER_GENDER", registerGender);
+  yield takeLatest("REGISTER_DOB", registerDob);
 }
 
 export default registrationSaga;
