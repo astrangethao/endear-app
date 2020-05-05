@@ -10,12 +10,6 @@ class NamePage extends Component {
     last_name: "",
   };
 
-  handleBtn = (type) => (event) => {
-    if (type === "back") {
-      alert("Please put in name!");
-    }
-  };
-
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
       [propertyName]: event.target.value,
@@ -43,7 +37,7 @@ class NamePage extends Component {
   render() {
     return (
       <div className="container">
-        <Button onClick={this.handleBtn("back")}>Back</Button>
+        <Button>Back</Button>
         <h3>About You</h3>
         <h2>What's your name?</h2>
 
