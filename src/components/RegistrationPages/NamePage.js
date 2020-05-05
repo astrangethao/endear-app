@@ -29,8 +29,8 @@ class NamePage extends Component {
       this.props.dispatch({
         type: "REGISTER_NAME",
         payload: {
-          first_name: this.state.first_name,
-          last_name: this.state.last_name,
+          ...this.props.store.registered,
+          ...this.state,
         },
       });
 

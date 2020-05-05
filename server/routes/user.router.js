@@ -26,7 +26,7 @@ router.post("/register", (req, res, next) => {
   pool
     .query(queryText, [username, password])
     .then((response) => {
-      res.send(response.rows);
+      res.send(response.rows[0]);
       res.sendStatus(201);
     })
     .catch(() => res.sendStatus(500));
