@@ -44,7 +44,7 @@ class App extends Component {
             This is a route anyone can see, no login necessary */}
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/home" component={LandingPage} />
-            <Route exact path="/name" component={NamePage} />
+
             <Route exact path="/gender" component={GenderPage} />
             <Route exact path="/dob" component={DobPage} />
             <Route exact path="/location" component={LocationPage} />
@@ -74,6 +74,13 @@ class App extends Component {
               path="/registration"
               authRedirect="/admin"
               component={RegisterPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/name"
+              authRedirect="/admin"
+              component={NamePage}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}
