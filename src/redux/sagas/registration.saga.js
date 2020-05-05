@@ -53,7 +53,7 @@ function* registerGender(action) {
     });
 
     //update to show step 2
-    // yield put({ type: "SET_TO_REGISTER_GENDER" });
+    yield put({ type: "SET_TO_REGISTER_DOB" });
   } catch (error) {
     console.log("Error with user gender registration:", error);
     yield put({ type: "REGISTRATION_FAILED" });

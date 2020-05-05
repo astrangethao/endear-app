@@ -8,6 +8,8 @@ const loginMode = (state = "login", action) => {
       return "register_name";
     case "SET_TO_REGISTER_GENDER":
       return "register_gender";
+    case "SET_TO_REGISTER_DOB":
+      return "register_dob";
     default:
       return state;
   }
