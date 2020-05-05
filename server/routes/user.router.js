@@ -26,29 +26,11 @@ router.post("/register", (req, res, next) => {
   pool
     .query(queryText, [username, password])
     .then((response) => {
-      res.Status(201);
-      res.send(response.rows[0]);
+      console.log(response.rows);
+
+      res.sendStatus(201);
     })
     .catch(() => res.sendStatus(500));
-});
-
-// Handles PUT request with new user data
-router.put("/names/:id", (req, res, next) => {
-  const userId = req.params.id;
-  const firstName = req.body.first_name;
-  const lastName = req.body.last_name;
-
-  const queryText =
-    'UPDATE "user_account" SET "first_name"=$1, "last_name"=$2 WHERE "id" = $3;';
-
-  pool
-    .query(queryText, [firstName, lastName, userId])
-    .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.warn("error in post:", err);
-
-      res.sendStatus(500);
-    });
 });
 
 // Handles login form authenticate/login POST
@@ -64,6 +46,17 @@ router.post("/logout", (req, res) => {
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
+});
+
+router.put("/names/:id", (req, res) => {
+  const userId = req.params.id;
+  //EXPECTED REQUEST DATA STRUCTURE
+  const newUser = req.body;
+  console.log("PUT:", userId, newUser);
+
+  const queryText = `UPDATE "user_account" SET "first_name"= $1, "last_name"=$2 WHERE "id" = $3;`;
+
+  pool.query(queryText, [newUser.first_name, newUser.last_name, userId]);
 });
 
 module.exports = router;

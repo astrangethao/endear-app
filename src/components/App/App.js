@@ -78,7 +78,7 @@ class App extends Component {
 
             <ProtectedRoute
               exact
-              path="/name/:id"
+              path="/name"
               authRedirect="/admin"
               component={NamePage}
             />

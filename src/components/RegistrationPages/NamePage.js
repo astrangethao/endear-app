@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
 import "./RegistrationPages.css";
+import { connect } from "react-redux";
+import mapStoreToProps from "../../redux/mapStoreToProps";
 
 class NamePage extends Component {
   state = {
@@ -32,7 +34,7 @@ class NamePage extends Component {
         },
       });
 
-      this.props.history.push("/gender");
+      // this.props.history.push("/gender");
     } else {
       this.props.dispatch({ type: "REGISTRATION_NAME_ERROR" });
     }
@@ -71,7 +73,7 @@ class NamePage extends Component {
           </div>
 
           <div>
-            <Button>Next</Button>
+            <Button type="submit">Next</Button>
           </div>
         </form>
       </div>
@@ -79,4 +81,4 @@ class NamePage extends Component {
   }
 }
 
-export default NamePage;
+export default connect(mapStoreToProps)(NamePage);

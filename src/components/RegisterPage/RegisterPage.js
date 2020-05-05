@@ -20,7 +20,7 @@ class RegisterPage extends Component {
         },
       });
 
-      // this.props.history.push(`/name`);
+      this.props.history.push("/name");
     } else {
       this.props.dispatch({ type: "REGISTRATION_INPUT_ERROR" });
     }
@@ -33,6 +33,8 @@ class RegisterPage extends Component {
   };
 
   render() {
+    console.log(this.state);
+
     return (
       <div>
         {this.props.errors.registrationMessage && (
