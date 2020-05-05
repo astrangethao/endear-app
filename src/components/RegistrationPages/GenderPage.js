@@ -37,7 +37,7 @@ class GenderPage extends Component {
 
       this.props.history.push("/dob");
     } else {
-      this.props.dispatch({ type: "REGISTRATION_NAME_ERROR" });
+      this.props.dispatch({ type: "REGISTRATION_GENDER_ERROR" });
     }
   };
 
