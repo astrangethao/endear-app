@@ -6,6 +6,8 @@ const loginMode = (state = "login", action) => {
       return "register";
     case "SET_TO_REGISTER_NAME":
       return "register_name";
+    case "SET_TO_REGISTER_GENDER":
+      return "register_gender";
     default:
       return state;
   }

@@ -1,6 +1,6 @@
 const registeredReducer = (state = {}, action) => {
   switch (action.type) {
-    case "SET_NEW_REGISTERED_NAMES":
+    case "SET_NEW_REGISTERED_ID":
       return action.payload;
     case "CLEAR_REGISTERED":
       return {};

@@ -9,11 +9,10 @@ function* registerUser(action) {
 
     // passes the username and password from the payload to the server
     const response = yield axios.post("api/user/register", action.payload);
-    console.log("NEWUSER:", response.data);
 
     //passes id to the reducer
     yield put({
-      type: "SET_NEW_REGISTERED_NAMES",
+      type: "SET_NEW_REGISTERED_ID",
       payload: {
         ...response.data,
         ...action.payload,
@@ -32,8 +31,6 @@ function* registerUser(action) {
 
 function* registerName(action) {
   try {
-    yield console.log("REGISTER NAMES:", action.payload.id);
-
     // passes the first name and last name from the payload to the server
     yield axios.put(`api/user/names/${action.payload.id}`, {
       first_name: action.payload.first_name,
@@ -41,6 +38,8 @@ function* registerName(action) {
     });
 
     //update to show step 2
+    yield console.log("GENDERBENDER");
+
     yield put({ type: "SET_TO_REGISTER_GENDER" });
   } catch (error) {
     console.log("Error with user first/last name registration:", error);

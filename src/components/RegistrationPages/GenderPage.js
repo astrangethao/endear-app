@@ -22,10 +22,10 @@ class GenderPage extends Component {
         <div className="input">
           <form>
             <input type="checkbox" name="gender-1" value="Woman" />
-            <label for="gender-1">Woman</label>
+            <label htmlFor="gender-1">Woman</label>
             <br></br>
             <input type="checkbox" name="gender-2" value="Man" />
-            <label for="gender-2">Man</label>
+            <label htmlFor="gender-2">Man</label>
             <br></br>
           </form>
         </div>

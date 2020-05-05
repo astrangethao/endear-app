@@ -34,7 +34,7 @@ class NamePage extends Component {
         },
       });
 
-      // this.props.history.push("/gender");
+      this.props.history.push("/gender");
     } else {
       this.props.dispatch({ type: "REGISTRATION_NAME_ERROR" });
     }

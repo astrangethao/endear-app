@@ -55,7 +55,13 @@ router.put("/names/:id", (req, res) => {
 
   const queryText = `UPDATE "user_account" SET "first_name"= $1, "last_name"=$2 WHERE "id" = $3;`;
 
-  pool.query(queryText, [newUser.first_name, newUser.last_name, userId]);
+  pool
+    .query(queryText, [newUser.first_name, newUser.last_name, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

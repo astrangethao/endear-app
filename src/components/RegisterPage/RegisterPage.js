@@ -33,8 +33,6 @@ class RegisterPage extends Component {
   };
 
   render() {
-    console.log(this.state);
-
     return (
       <div>
         {this.props.errors.registrationMessage && (
