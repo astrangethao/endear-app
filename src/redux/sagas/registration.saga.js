@@ -9,8 +9,15 @@ function* registerUser(action) {
 
     // passes the username and password from the payload to the server
     const response = yield axios.post("api/user/register", action.payload);
+    console.log("NEW USER:", response.data);
 
-    yield put({ type: "SET_NEW_USER_NAMES", payload: response.data });
+    yield put({
+      type: "SET_NEW_USER_NAMES",
+      payload: {
+        ...response.data,
+        ...action.payload,
+      },
+    });
     //update to show step 2
     yield put({ type: "SET_TO_REGISTER_NAME" });
 
@@ -24,10 +31,10 @@ function* registerUser(action) {
 function* registerName(action) {
   try {
     // passes the first name and last name from the payload to the server
-    yield axios.put("api/user/register", action.payload);
-
-    //update to show step 2
-    yield put({ type: "SET_TO_REGISTER_NAME" });
+    yield axios.put(`api/user/names/${action.payload.id}`, {
+      first_name: action.payload.first_name,
+      last_name: action.payload.last_name,
+    });
   } catch (error) {
     console.log("Error with user first/last name registration:", error);
     yield put({ type: "REGISTRATION_FAILED" });

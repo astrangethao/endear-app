@@ -44,7 +44,11 @@ router.put("/names/:id", (req, res, next) => {
   pool
     .query(queryText, [firstName, lastName, userId])
     .then(() => res.sendStatus(201))
-    .catch(() => res.sendStatus(500));
+    .catch((err) => {
+      console.warn("error in post:", err);
+
+      res.sendStatus(500);
+    });
 });
 
 // Handles login form authenticate/login POST
