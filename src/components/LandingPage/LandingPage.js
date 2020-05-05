@@ -55,7 +55,7 @@ class LandingPage extends Component {
             </p>
           </div>
           <div>
-            <img src="couple.jpg" alt="image" />
+            <img src="couple.jpg" alt="couple" />
           </div>
           <div className="grid-col grid-col_8">
             <Button className="btn " color="primary" onClick={this.onLogin}>
