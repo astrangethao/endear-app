@@ -38,8 +38,6 @@ function* registerName(action) {
     });
 
     //update to show step 2
-    yield console.log("GENDERBENDER");
-
     yield put({ type: "SET_TO_REGISTER_GENDER" });
   } catch (error) {
     console.log("Error with user first/last name registration:", error);
@@ -47,9 +45,25 @@ function* registerName(action) {
   }
 }
 
+function* registerGender(action) {
+  try {
+    // passes the first name and last name from the payload to the server
+    yield axios.put(`api/user/gender/${action.payload.id}`, {
+      gender_id: action.payload.gender_id,
+    });
+
+    //update to show step 2
+    // yield put({ type: "SET_TO_REGISTER_GENDER" });
+  } catch (error) {
+    console.log("Error with user gender registration:", error);
+    yield put({ type: "REGISTRATION_FAILED" });
+  }
+}
+
 function* registrationSaga() {
   yield takeLatest("REGISTER", registerUser);
   yield takeLatest("REGISTER_NAME", registerName);
+  yield takeLatest("REGISTER_GENDER", registerGender);
 }
 
 export default registrationSaga;

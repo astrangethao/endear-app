@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
 import "./RegistrationPages.css";
+import { connect } from "react-redux";
+import mapStoreToProps from "../../redux/mapStoreToProps";
 
 class GenderPage extends Component {
   state = {
@@ -20,6 +22,25 @@ class GenderPage extends Component {
       });
     }
   };
+
+  registerGender = (event) => {
+    event.preventDefault();
+
+    if (this.state.gender_id) {
+      this.props.dispatch({
+        type: "REGISTER_GENDER",
+        payload: {
+          ...this.props.store.registered,
+          ...this.state,
+        },
+      });
+
+      this.props.history.push("/dob");
+    } else {
+      this.props.dispatch({ type: "REGISTRATION_NAME_ERROR" });
+    }
+  };
+
   render() {
     console.log(this.state.gender_id);
 
@@ -29,7 +50,7 @@ class GenderPage extends Component {
         <h3>About You</h3>
         <h2>I am a...</h2>
         <div className="input">
-          <form>
+          <form onSubmit={this.registerGender}>
             <input
               type="checkbox"
               name="gender-1"
@@ -46,14 +67,12 @@ class GenderPage extends Component {
             />
             <label htmlFor="gender-2">Man</label>
             <br></br>
+            <Button type="submit">Next</Button>
           </form>
-        </div>
-        <div>
-          <Button>Next</Button>
         </div>
       </div>
     );
   }
 }
 
-export default GenderPage;
+export default connect(mapStoreToProps)(GenderPage);
