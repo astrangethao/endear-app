@@ -25,6 +25,24 @@ router.post("/register", (req, res, next) => {
     'INSERT INTO "user_account" (username, password) VALUES ($1, $2) RETURNING id';
   pool
     .query(queryText, [username, password])
+    .then((response) => {
+      res.Status(201);
+      res.send(response.rows[0]);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+// Handles PUT request with new user data
+router.put("/names/:id", (req, res, next) => {
+  const userId = req.params.id;
+  const firstName = req.body.first_name;
+  const lastName = req.body.last_name;
+
+  const queryText =
+    'UPDATE "user_account" SET "first_name"=$1, "last_name"=$2 WHERE "id" = $3;';
+
+  pool
+    .query(queryText, [firstName, lastName, userId])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500));
 });

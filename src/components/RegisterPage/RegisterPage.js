@@ -19,8 +19,9 @@ class RegisterPage extends Component {
           password: this.state.password,
         },
       });
+      console.log(this.props.store.user);
 
-      this.props.history.push("/name");
+      // this.props.history.push(`/name`);
     } else {
       this.props.dispatch({ type: "REGISTRATION_INPUT_ERROR" });
     }
