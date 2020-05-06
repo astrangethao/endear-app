@@ -32,6 +32,22 @@ router.post("/register", (req, res, next) => {
     .catch(() => res.sendStatus(500));
 });
 
+router.post("/location/:id", (req, res, next) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log("POST:", userId, newUser);
+
+  const queryText =
+    'INSERT INTO "location" (city, zipcode, user_account_id) VALUES ($1, $2, $3) RETURNING id';
+  pool
+    .query(queryText, [newUser.city, newUser.zipcode, userId])
+    .then((response) => {
+      res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful
@@ -49,9 +65,7 @@ router.post("/logout", (req, res) => {
 
 router.put("/names/:id", (req, res) => {
   const userId = req.params.id;
-  //EXPECTED REQUEST DATA STRUCTURE
   const newUser = req.body;
-  console.log("PUT:", userId, newUser);
 
   const queryText = `UPDATE "user_account" SET "first_name"= $1, "last_name"=$2 WHERE "id" = $3;`;
 
@@ -66,9 +80,7 @@ router.put("/names/:id", (req, res) => {
 
 router.put("/gender/:id", (req, res) => {
   const userId = req.params.id;
-  //EXPECTED REQUEST DATA STRUCTURE
   const newUser = req.body;
-  console.log("PUT:", userId, newUser);
 
   const queryText = `UPDATE "user_account" SET "gender_id"= $1 WHERE "id" = $2;`;
 
@@ -83,9 +95,7 @@ router.put("/gender/:id", (req, res) => {
 
 router.put("/dob/:id", (req, res) => {
   const userId = req.params.id;
-  //EXPECTED REQUEST DATA STRUCTURE
   const newUser = req.body;
-  console.log("PUT:", userId, newUser);
 
   const queryText = `UPDATE "user_account" SET "dob"= $1 WHERE "id" = $2;`;
 

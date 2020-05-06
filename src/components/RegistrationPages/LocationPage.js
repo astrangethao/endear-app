@@ -16,9 +16,24 @@ class LocationPage extends Component {
     });
   };
 
-  render() {
-    console.log(this.state);
+  registerLocation = (event) => {
+    event.preventDefault();
 
+    if (this.state.city && this.state.zipcode) {
+      this.props.dispatch({
+        type: "REGISTER_LOCATION",
+        payload: {
+          ...this.props.store.registered,
+          ...this.state,
+        },
+      });
+
+      this.props.history.push("/phone");
+    } else {
+      this.props.dispatch({ type: "REGISTRATION_LOCATION_ERROR" });
+    }
+  };
+  render() {
     return (
       <div className="container">
         <Button>Back</Button>
@@ -36,8 +51,6 @@ class LocationPage extends Component {
             <input
               type="text"
               name="zipcode"
-              pattern="[0-9] {5}"
-              title="Five Digit zip code"
               onChange={this.handleInputChangeFor("zipcode")}
             />
             <label htmlFor="zipcode">Zip code</label>
