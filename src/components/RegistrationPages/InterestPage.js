@@ -1,22 +1,14 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
 import "./RegistrationPages.css";
+import { connect } from "react-redux";
+import mapStoreToProps from "../../redux/mapStoreToProps";
 
 class InterestPage extends Component {
-  handleBtn = (type) => (event) => {
-    if (type === "back") {
-      this.props.history.push("/phone");
-    }
-
-    if (type === "next") {
-      this.props.history.push("/photos");
-    }
-  };
-
   render() {
     return (
       <div className="container">
-        <Button onClick={this.handleBtn("back")}>Back</Button>
+        <Button>Back</Button>
         <h3>About You</h3>
         <h2>I am interested in...</h2>
         <div className="input">
@@ -30,11 +22,11 @@ class InterestPage extends Component {
           </form>
         </div>
         <div>
-          <Button onClick={this.handleBtn("next")}>Next</Button>
+          <Button>Next</Button>
         </div>
       </div>
     );
   }
 }
 
-export default InterestPage;
+export default connect(mapStoreToProps)(InterestPage);
