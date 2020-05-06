@@ -22,10 +22,10 @@ class InterestPage extends Component {
         <div className="input">
           <form>
             <input type="checkbox" name="gender-1" value="Women" />
-            <label for="gender-1">Women</label>
+            <label htmlFor="gender-1">Women</label>
             <br></br>
             <input type="checkbox" name="gender-2" value="Men" />
-            <label for="gender-2">Men</label>
+            <label htmlFor="gender-2">Men</label>
             <br></br>
           </form>
         </div>

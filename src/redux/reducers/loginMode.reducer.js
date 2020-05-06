@@ -12,6 +12,8 @@ const loginMode = (state = "login", action) => {
       return "register_dob";
     case "SET_TO_REGISTER_LOCATION":
       return "register_location";
+    case "SET_TO_REGISTER_PHONE":
+      return "register_phone";
     default:
       return state;
   }

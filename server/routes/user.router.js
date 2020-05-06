@@ -108,4 +108,20 @@ router.put("/dob/:id", (req, res) => {
     });
 });
 
+router.put("/phone/:id", (req, res) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log(newUser.phone_number);
+
+  const queryText = `UPDATE "user_account" SET "phone_number"= $1 WHERE "id" = $2;`;
+
+  pool
+    .query(queryText, [newUser.phone_number, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

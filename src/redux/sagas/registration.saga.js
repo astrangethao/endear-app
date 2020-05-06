@@ -84,9 +84,24 @@ function* registerLocation(action) {
     });
 
     //update to show step 2
-    // yield put({ type: "SET_TO_REGISTER_PHONE" });
+    yield put({ type: "SET_TO_REGISTER_PHONE" });
   } catch (error) {
     console.log("Error with user location registration:", error);
+    yield put({ type: "REGISTRATION_FAILED" });
+  }
+}
+
+function* registerPhone(action) {
+  try {
+    // passes the phone number from the payload to the server
+    yield axios.put(`api/user/phone/${action.payload.id}`, {
+      phone_number: action.payload.phone_number,
+    });
+
+    //update to show step 2
+    yield put({ type: "SET_TO_REGISTER_INTEREST" });
+  } catch (error) {
+    console.log("Error with user phone registration:", error);
     yield put({ type: "REGISTRATION_FAILED" });
   }
 }
@@ -97,6 +112,7 @@ function* registrationSaga() {
   yield takeLatest("REGISTER_GENDER", registerGender);
   yield takeLatest("REGISTER_DOB", registerDob);
   yield takeLatest("REGISTER_LOCATION", registerLocation);
+  yield takeLatest("REGISTER_PHONE", registerPhone);
 }
 
 export default registrationSaga;

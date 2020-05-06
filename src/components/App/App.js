@@ -45,7 +45,6 @@ class App extends Component {
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/home" component={LandingPage} />
 
-            <Route exact path="/phone" component={PhonePage} />
             <Route exact path="/interest" component={InterestPage} />
             <Route exact path="/photos" component={PhotosPage} />
             <Route exact path="/details" component={DetailsPage} />
@@ -100,6 +99,13 @@ class App extends Component {
               path="/location"
               authRedirect="/admin"
               component={LocationPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/phone"
+              authRedirect="/admin"
+              component={PhonePage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

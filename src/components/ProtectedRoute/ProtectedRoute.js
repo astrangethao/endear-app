@@ -7,6 +7,7 @@ import NamePage from "../RegistrationPages/NamePage";
 import GenderPage from "../RegistrationPages/GenderPage";
 import DobPage from "../RegistrationPages/DobPage";
 import LocationPage from "../RegistrationPages/LocationPage";
+import PhonePage from "../RegistrationPages/PhonePage";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 
 // A Custom Wrapper Component -- This will keep our code DRY.
@@ -53,6 +54,8 @@ const ProtectedRoute = (props) => {
     ComponentToShow = DobPage;
   } else if (store.loginMode === "register_location") {
     ComponentToShow = LocationPage;
+  } else if (store.loginMode === "register_phone") {
+    ComponentToShow = PhonePage;
   }
   // redirect a logged in user if an authRedirect prop has been provided
   if (store.user.id && authRedirect != null) {
