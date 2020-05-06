@@ -10,6 +10,8 @@ const loginMode = (state = "login", action) => {
       return "register_gender";
     case "SET_TO_REGISTER_DOB":
       return "register_dob";
+    case "SET_TO_REGISTER_LOCATION":
+      return "register_location";
     default:
       return state;
   }

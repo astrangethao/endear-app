@@ -68,7 +68,7 @@ function* registerDob(action) {
     });
 
     //update to show step 2
-    // yield put({ type: "SET_TO_REGISTER_DOB" });
+    yield put({ type: "SET_TO_REGISTER_LOCATION" });
   } catch (error) {
     console.log("Error with user dob registration:", error);
     yield put({ type: "REGISTRATION_FAILED" });
