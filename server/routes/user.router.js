@@ -35,12 +35,27 @@ router.post("/register", (req, res, next) => {
 router.post("/location/:id", (req, res, next) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log("POST:", userId, newUser);
 
   const queryText =
     'INSERT INTO "location" (city, zipcode, user_account_id) VALUES ($1, $2, $3) RETURNING id';
   pool
     .query(queryText, [newUser.city, newUser.zipcode, userId])
+    .then((response) => {
+      res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.post("/interest/:id", (req, res, next) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log("INTEREST POST:", userId, newUser);
+
+  const queryText =
+    'INSERT INTO "interested_in_gender" (user_account_id, gender_id) VALUES ($1, $2) RETURNING id';
+  pool
+    .query(queryText, [userId, newUser.gender_id])
     .then((response) => {
       res.send(response.rows[0]);
       res.sendStatus(201);

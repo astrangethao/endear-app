@@ -42,8 +42,6 @@ class GenderPage extends Component {
   };
 
   render() {
-    console.log(this.state.gender_id);
-
     return (
       <div className="container">
         <Button>Back</Button>
