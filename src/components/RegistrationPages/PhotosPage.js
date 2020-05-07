@@ -14,6 +14,7 @@ class PhotosPage extends Component {
         link: info.fileUrl,
       },
     });
+    this.props.history.push("/details");
   };
   render() {
     const uploadOptions = {
