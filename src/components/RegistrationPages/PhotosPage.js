@@ -14,8 +14,14 @@ class PhotosPage extends Component {
         link: info.fileUrl,
       },
     });
-    this.props.history.push("/details");
   };
+
+  handleBtnNext = () => {
+    this.props.dispatch({
+      type: "SET_MODE",
+    });
+  };
+
   render() {
     const uploadOptions = {
       server: "http://localhost:5000",
@@ -36,7 +42,7 @@ class PhotosPage extends Component {
           />
         </div>
         <div>
-          <Button>Next</Button>
+          <Button onClick={this.handleBtnNext}>Next</Button>
         </div>
       </div>
     );

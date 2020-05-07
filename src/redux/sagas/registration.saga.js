@@ -129,11 +129,15 @@ function* registerPhotos(action) {
     });
 
     //update to show step 2
-    yield put({ type: "SET_TO_REGISTER_DETAILS" });
+    // yield put({ type: "SET_TO_REGISTER_DETAILS" });
   } catch (error) {
     console.log("Error with user photo registration:", error);
     yield put({ type: "REGISTRATION_FAILED" });
   }
+}
+
+function* setToDetailsPage(action) {
+  yield put({ type: "SET_TO_REGISTER_DETAILS" });
 }
 
 function* registerDetails(action) {
@@ -159,6 +163,7 @@ function* registrationSaga() {
   yield takeLatest("REGISTER_INTEREST", registerInterest);
   yield takeLatest("REGISTER_PHOTOS", registerPhotos);
   yield takeLatest("REGISTER_DETAILS", registerDetails);
+  yield takeLatest("SET_MODE", setToDetailsPage);
 }
 
 export default registrationSaga;
