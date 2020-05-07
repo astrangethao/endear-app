@@ -154,4 +154,20 @@ router.put("/phone/:id", (req, res) => {
     });
 });
 
+router.put("/details/:id", (req, res) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log(newUser.details);
+
+  const queryText = `UPDATE "user_account" SET "details"= $1 WHERE "id" = $2;`;
+
+  pool
+    .query(queryText, [newUser.details, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

@@ -18,6 +18,10 @@ const loginMode = (state = "login", action) => {
       return "register_interest";
     case "SET_TO_REGISTER_PHOTOS":
       return "register_photos";
+    case "SET_TO_REGISTER_DETAILS":
+      return "register_details";
+    case "SET_TO_REGISTER_AUDIO":
+      return "register_audio";
     default:
       return state;
   }

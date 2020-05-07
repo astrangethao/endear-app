@@ -129,9 +129,22 @@ function* registerPhotos(action) {
     });
 
     //update to show step 2
-    // yield put({ type: "SET_TO_REGISTER_PHOTOS" });
+    yield put({ type: "SET_TO_REGISTER_DETAILS" });
   } catch (error) {
-    console.log("Error with user phone registration:", error);
+    console.log("Error with user photo registration:", error);
+    yield put({ type: "REGISTRATION_FAILED" });
+  }
+}
+
+function* registerDetails(action) {
+  try {
+    yield axios.put(`api/user/details/${action.payload.id}`, {
+      details: action.payload.details,
+    });
+
+    yield put({ type: "SET_TO_REGISTER_AUDIO" });
+  } catch (error) {
+    console.log("Error with user details registration:", error);
     yield put({ type: "REGISTRATION_FAILED" });
   }
 }
@@ -145,6 +158,7 @@ function* registrationSaga() {
   yield takeLatest("REGISTER_PHONE", registerPhone);
   yield takeLatest("REGISTER_INTEREST", registerInterest);
   yield takeLatest("REGISTER_PHOTOS", registerPhotos);
+  yield takeLatest("REGISTER_DETAILS", registerDetails);
 }
 
 export default registrationSaga;
