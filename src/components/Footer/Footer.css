@@ -7,4 +7,6 @@ footer {
   display: inline-block;
   margin: 10px 20px;
   text-align: center;
+  text-decoration: none;
+  color: #222;
 }
