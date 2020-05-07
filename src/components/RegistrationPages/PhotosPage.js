@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import { Button } from "@material-ui/core";
 import "./RegistrationPages.css";
 import DropzoneS3Uploader from "react-dropzone-s3-uploader";
+import { connect } from "react-redux";
+import mapStoreToProps from "../../redux/mapStoreToProps";
 
 class PhotosPage extends Component {
   handleFinishedUpload = (info) => {
-    console.log(info.filename, info.fileURL);
     this.props.dispatch({
       type: "REGISTER_PHOTOS",
       payload: {
         ...this.props.store.registered,
-        link: info.fileURL,
+        link: info.fileUrl,
       },
     });
   };
@@ -41,4 +42,4 @@ class PhotosPage extends Component {
   }
 }
 
-export default PhotosPage;
+export default connect(mapStoreToProps)(PhotosPage);
