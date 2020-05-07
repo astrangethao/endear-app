@@ -4,6 +4,16 @@ import "./RegistrationPages.css";
 import DropzoneS3Uploader from "react-dropzone-s3-uploader";
 
 class PhotosPage extends Component {
+  handleFinishedUpload = (info) => {
+    console.log(info.filename, info.fileURL);
+    this.props.dispatch({
+      type: "REGISTER_PHOTOS",
+      payload: {
+        ...this.props.store.registered,
+        link: info.fileURL,
+      },
+    });
+  };
   render() {
     const uploadOptions = {
       server: "http://localhost:5000",

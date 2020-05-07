@@ -50,12 +50,27 @@ router.post("/location/:id", (req, res, next) => {
 router.post("/interest/:id", (req, res, next) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log("INTEREST POST:", userId, newUser);
 
   const queryText =
     'INSERT INTO "interested_in_gender" (user_account_id, gender_id) VALUES ($1, $2) RETURNING id';
   pool
     .query(queryText, [userId, newUser.gender_id])
+    .then((response) => {
+      res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.post("/photos/:id", (req, res, next) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log("INTEREST POST:", userId, newUser);
+
+  const queryText =
+    'INSERT INTO "user_photo" (user_account_id, link) VALUES ($1, $2) RETURNING id';
+  pool
+    .query(queryText, [userId, newUser.link])
     .then((response) => {
       res.send(response.rows[0]);
       res.sendStatus(201);

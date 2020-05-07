@@ -121,6 +121,21 @@ function* registerInterest(action) {
   }
 }
 
+function* registerPhotos(action) {
+  try {
+    // passes the gender interest choice from the payload to the server
+    yield axios.post(`api/user/photos/${action.payload.id}`, {
+      link: action.payload.link,
+    });
+
+    //update to show step 2
+    // yield put({ type: "SET_TO_REGISTER_PHOTOS" });
+  } catch (error) {
+    console.log("Error with user phone registration:", error);
+    yield put({ type: "REGISTRATION_FAILED" });
+  }
+}
+
 function* registrationSaga() {
   yield takeLatest("REGISTER", registerUser);
   yield takeLatest("REGISTER_NAME", registerName);
@@ -129,6 +144,7 @@ function* registrationSaga() {
   yield takeLatest("REGISTER_LOCATION", registerLocation);
   yield takeLatest("REGISTER_PHONE", registerPhone);
   yield takeLatest("REGISTER_INTEREST", registerInterest);
+  yield takeLatest("REGISTER_PHOTOS", registerPhotos);
 }
 
 export default registrationSaga;

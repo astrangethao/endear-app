@@ -16,6 +16,8 @@ const loginMode = (state = "login", action) => {
       return "register_phone";
     case "SET_TO_REGISTER_INTEREST":
       return "register_interest";
+    case "SET_TO_REGISTER_PHOTOS":
+      return "register_photos";
     default:
       return state;
   }
