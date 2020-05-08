@@ -23,7 +23,7 @@ const customStyles = (theme) =>
     },
     body: {
       padding: "5px",
-      marginBottom: "5%",
+      marginBottom: "3%",
     },
     image: {
       maxWidth: "90%",
@@ -34,6 +34,9 @@ const customStyles = (theme) =>
       color: "#fff",
       margin: "5%",
       fontFamily: "Quicksand",
+      "&:hover": {
+        background: "#B53471",
+      },
     },
     typography: {
       margin: "2% 0",
