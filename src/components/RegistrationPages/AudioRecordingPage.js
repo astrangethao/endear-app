@@ -1,22 +1,57 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
-import { Button } from "@material-ui/core";
-import "./RegistrationPages.css";
+import {
+  Button,
+  Container,
+  Paper,
+  withStyles,
+  createStyles,
+  TextField,
+} from "@material-ui/core";
+import "typeface-quicksand";
+
+const customStyles = (theme) =>
+  createStyles({
+    root: {
+      textAlign: "left",
+    },
+    paper_class: {
+      maxWidth: "90%",
+      height: "75vh",
+      backgroundColor: "#dfe4ea",
+      padding: "3%",
+      margin: "3%",
+    },
+    btn: {
+      backgroundColor: "#cf6a87",
+      color: "#fff",
+      margin: "5%",
+      fontFamily: "Quicksand",
+      "&:hover": {
+        background: "#e66767",
+      },
+    },
+    font: {
+      fontFamily: "Quicksand",
+    },
+  });
 
 class AudioRecordingPage extends Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div className="container">
-        <Button>Back</Button>
-        <h3>About You</h3>
-        <h2>Record Yourself!</h2>
-        <div className="input">
-          <input placeholder="Audio" type="text" />
-        </div>
-        <div>
-          <center>
-            {/* <Button
+      <center>
+        <Paper className={classes.paper_class}>
+          <Container>
+            <Button className={classes.btn}>Back</Button>
+            <h3>About You</h3>
+            <h2>Record Yourself!</h2>
+
+            <input placeholder="Audio" type="text" />
+
+            <center>
+              {/* <Button
               type="button"
               className="link-button"
               onClick={() => {
@@ -25,11 +60,14 @@ class AudioRecordingPage extends Component {
             >
               Login
             </Button> */}
-          </center>
-        </div>
-      </div>
+            </center>
+          </Container>
+        </Paper>
+      </center>
     );
   }
 }
 
-export default connect(mapStoreToProps)(AudioRecordingPage);
+export default withStyles(customStyles)(
+  connect(mapStoreToProps)(AudioRecordingPage)
+);

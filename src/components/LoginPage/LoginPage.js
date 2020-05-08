@@ -1,6 +1,51 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
+import Nav from "../Nav/Nav";
+import {
+  Button,
+  Container,
+  Paper,
+  withStyles,
+  createStyles,
+} from "@material-ui/core";
+import "typeface-quicksand";
+
+const customStyles = (theme) =>
+  createStyles({
+    root: {
+      textAlign: "left",
+    },
+    paper_class: {
+      maxWidth: "30%",
+      backgroundColor: "#dfe4ea",
+      padding: "3%",
+      margin: "3%",
+    },
+    btn: {
+      backgroundColor: "#cf6a87",
+      color: "#fff",
+      margin: "5%",
+      fontFamily: "Quicksand",
+      "&:hover": {
+        background: "#e66767",
+      },
+    },
+    font: {
+      fontFamily: "Quicksand",
+    },
+    link_btn: {
+      fontFamily: "Quicksand",
+      fontSize: "15px",
+      background: "none",
+      color: "inherit",
+      border: "none",
+      padding: "0",
+      outline: "0",
+      borderBottom: "1px solid #444",
+      cursor: "pointer",
+    },
+  });
 
 class LoginPage extends Component {
   state = {
@@ -35,50 +80,60 @@ class LoginPage extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.root}>
+        <Nav />
         {this.props.store.errors.loginMessage && (
           <h2 className="alert" role="alert">
             {this.props.store.errors.loginMessage}
           </h2>
         )}
-        <form className="formPanel" onSubmit={this.login}>
-          <h1>Login</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor("username")}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor("password")}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="log-in"
-              type="submit"
-              name="submit"
-              value="Log In"
-            />
-          </div>
-        </form>
+        <center>
+          <Paper className={classes.paper_class}>
+            <Container>
+              <form onSubmit={this.login}>
+                <h1 className={classes.font}>Login</h1>
+                <div>
+                  <label htmlFor="username" className={classes.font}>
+                    Email:
+                    <input
+                      type="text"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.handleInputChangeFor("username")}
+                    />
+                  </label>
+                </div>
+                <div>
+                  <label htmlFor="password" className={classes.font}>
+                    Password:
+                    <input
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleInputChangeFor("password")}
+                    />
+                  </label>
+                </div>
+                <div>
+                  <Button
+                    className={classes.btn}
+                    type="submit"
+                    name="submit"
+                    value="Log In"
+                  >
+                    Log In
+                  </Button>
+                </div>
+              </form>
+            </Container>
+          </Paper>
+        </center>
         <center>
           <button
             type="button"
-            className="link-button"
+            className={classes.link_btn}
             onClick={() => {
               this.props.dispatch({ type: "SET_TO_REGISTER_MODE" });
             }}
@@ -88,7 +143,7 @@ class LoginPage extends Component {
           <div>
             <button
               type="button"
-              className="link-button"
+              className={classes.link_btn}
               onClick={this.handleHomeBtn}
             >
               Home
@@ -100,4 +155,4 @@ class LoginPage extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(LoginPage);
+export default withStyles(customStyles)(connect(mapStoreToProps)(LoginPage));

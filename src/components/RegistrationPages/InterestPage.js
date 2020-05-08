@@ -1,8 +1,40 @@
 import React, { Component } from "react";
-import { Button } from "@material-ui/core";
-import "./RegistrationPages.css";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
+import {
+  Button,
+  Container,
+  Paper,
+  withStyles,
+  createStyles,
+} from "@material-ui/core";
+import "typeface-quicksand";
+
+const customStyles = (theme) =>
+  createStyles({
+    root: {
+      textAlign: "left",
+    },
+    paper_class: {
+      maxWidth: "90%",
+      height: "75vh",
+      backgroundColor: "#dfe4ea",
+      padding: "3%",
+      margin: "3%",
+    },
+    btn: {
+      backgroundColor: "#cf6a87",
+      color: "#fff",
+      margin: "5%",
+      fontFamily: "Quicksand",
+      "&:hover": {
+        background: "#e66767",
+      },
+    },
+    font: {
+      fontFamily: "Quicksand",
+    },
+  });
 
 class InterestPage extends Component {
   state = {
@@ -42,37 +74,46 @@ class InterestPage extends Component {
   };
 
   render() {
-    console.log(this.state);
+    const { classes } = this.props;
 
     return (
-      <div className="container">
-        <Button>Back</Button>
-        <h3>About You</h3>
-        <h2>I am interested in...</h2>
-        <div className="input">
-          <form onSubmit={this.registerGenderInterest}>
-            <input
-              type="checkbox"
-              name="gender-1"
-              value="Woman"
-              onChange={this.handleInputChangeFor("Woman")}
-            />
-            <label htmlFor="gender-1">Women</label>
-            <br></br>
-            <input
-              type="checkbox"
-              name="gender-2"
-              value="Man"
-              onChange={this.handleInputChangeFor("Man")}
-            />
-            <label htmlFor="gender-2">Men</label>
-            <br></br>
-            <Button type="submit">Next</Button>
-          </form>
-        </div>
-      </div>
+      <center>
+        <Paper className={classes.paper_class}>
+          <Container>
+            <Button className={classes.btn}>Back</Button>
+            <h3 className={classes.font}>About You</h3>
+            <h2 className={classes.font}>I am interested in...</h2>
+
+            <form onSubmit={this.registerGenderInterest}>
+              <input
+                type="checkbox"
+                name="gender-1"
+                value="Woman"
+                onChange={this.handleInputChangeFor("Woman")}
+              />
+              <label className={classes.font} htmlFor="gender-1">
+                Women
+              </label>
+              <br></br>
+              <input
+                type="checkbox"
+                name="gender-2"
+                value="Man"
+                onChange={this.handleInputChangeFor("Man")}
+              />
+              <label className={classes.font} htmlFor="gender-2">
+                Men
+              </label>
+              <br></br>
+              <Button className={classes.btn} type="submit">
+                Next
+              </Button>
+            </form>
+          </Container>
+        </Paper>
+      </center>
     );
   }
 }
 
-export default connect(mapStoreToProps)(InterestPage);
+export default withStyles(customStyles)(connect(mapStoreToProps)(InterestPage));

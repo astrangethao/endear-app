@@ -48,7 +48,7 @@ const customStyles = (theme) =>
 class Nav extends Component {
   state = {
     loginLinkData: {
-      path: "/home",
+      path: "/login",
       text: "Sign In",
     },
   };
