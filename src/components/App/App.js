@@ -44,8 +44,6 @@ class App extends Component {
             This is a route anyone can see, no login necessary */}
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/home" component={LandingPage} />
-
-            <Route exact path="/audio" component={AudioRecordingPage} />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -124,6 +122,13 @@ class App extends Component {
               path="/details"
               authRedirect="/admin"
               component={DetailsPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/audio"
+              authRedirect="/admin"
+              component={AudioRecordingPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

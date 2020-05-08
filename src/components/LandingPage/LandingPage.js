@@ -13,6 +13,9 @@ class LandingPage extends Component {
   };
 
   onLogin = (event) => {
+    this.props.dispatch({
+      type: "SET_TO_REGISTER_MODE",
+    });
     this.props.history.push("/login");
   };
 
