@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./RegistrationPages.css";
 import DropzoneS3Uploader from "react-dropzone-s3-uploader";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";

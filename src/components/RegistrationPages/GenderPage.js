@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./RegistrationPages.css";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import {
@@ -83,33 +82,32 @@ class GenderPage extends Component {
             <Button className={classes.btn}>Back</Button>
             <h3 className={classes.font}>About You</h3>
             <h2 className={classes.font}>I am a...</h2>
-            <div className="input">
-              <form onSubmit={this.registerGender}>
-                <input
-                  type="checkbox"
-                  name="gender-1"
-                  value="Woman"
-                  onChange={this.handleInputChangeFor("Woman")}
-                />
-                <label className={classes.font} htmlFor="gender-1">
-                  Woman
-                </label>
-                <br></br>
-                <input
-                  type="checkbox"
-                  name="gender-2"
-                  value="Man"
-                  onChange={this.handleInputChangeFor("Man")}
-                />
-                <label className={classes.font} htmlFor="gender-2">
-                  Man
-                </label>
-                <br></br>
-                <Button className={classes.btn} type="submit">
-                  Next
-                </Button>
-              </form>
-            </div>
+
+            <form onSubmit={this.registerGender}>
+              <input
+                type="checkbox"
+                name="gender-1"
+                value="Woman"
+                onChange={this.handleInputChangeFor("Woman")}
+              />
+              <label className={classes.font} htmlFor="gender-1">
+                Woman
+              </label>
+              <br></br>
+              <input
+                type="checkbox"
+                name="gender-2"
+                value="Man"
+                onChange={this.handleInputChangeFor("Man")}
+              />
+              <label className={classes.font} htmlFor="gender-2">
+                Man
+              </label>
+              <br></br>
+              <Button className={classes.btn} type="submit">
+                Next
+              </Button>
+            </form>
           </Container>
         </Paper>
       </center>
