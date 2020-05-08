@@ -1,30 +1,52 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  Grid,
+  Typography,
+  withStyles,
+  createStyles,
+} from "@material-ui/core";
 import Footer from "../Footer/Footer";
 import Nav from "../Nav/Nav";
+import coupleImage from "../Images/couple.jpg";
 
 import "./LandingPage.css";
 
-class LandingPage extends Component {
-  state = {
-    heading: "The dating app for people who hate dating apps.",
-  };
+const customStyles = (theme) =>
+  createStyles({
+    root: {
+      textAlign: "left",
+    },
+    body: {
+      padding: "5px",
+      marginBottom: "20%",
+    },
+    image: {
+      maxHeight: "90%",
+      maxWidth: "90%",
+      padding: "5%",
+    },
+  });
 
+class LandingPage extends Component {
   onRegister = (event) => {
     this.props.history.push("/registration");
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
         <Nav />
-        <div>
-          <h2>{this.state.heading}</h2>
-
-          <div className="grid">
-            <div className="grid-col grid-col_8">
+        <Container maxWidth={false}>
+          <Grid container spacing={2} className={classes.root}>
+            <Grid item xs={6} className={classes.body}>
+              <Typography component="h1" variant="h2">
+                The dating app for people who hate dating apps.
+              </Typography>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Curabitur id felis metus. Vestibulum et pulvinar tortor. Morbi
@@ -48,11 +70,7 @@ class LandingPage extends Component {
                 lacus, sed lobortis augue mi vel felis. Duis ultrices sapien at
                 est convallis congue.
               </p>
-            </div>
-            <div>
-              <img src="couple.jpg" alt="couple" />
-            </div>
-            <div className="grid-col grid-col_8">
+
               <Button
                 className="btn "
                 color="primary"
@@ -60,13 +78,16 @@ class LandingPage extends Component {
               >
                 Join Endear
               </Button>
-            </div>
-          </div>
-          <Footer />
-        </div>
+            </Grid>
+            <Grid item xs={6}>
+              <img src={coupleImage} alt="couple" className={classes.image} />
+            </Grid>
+          </Grid>
+        </Container>
+        <Footer />
       </div>
     );
   }
 }
 
-export default connect(mapStoreToProps)(LandingPage);
+export default withStyles(customStyles)(connect(mapStoreToProps)(LandingPage));
