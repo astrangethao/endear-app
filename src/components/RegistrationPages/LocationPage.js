@@ -1,8 +1,41 @@
 import React, { Component } from "react";
-import { Button } from "@material-ui/core";
 import "./RegistrationPages.css";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
+import {
+  Button,
+  Container,
+  Paper,
+  withStyles,
+  createStyles,
+} from "@material-ui/core";
+import "typeface-quicksand";
+
+const customStyles = (theme) =>
+  createStyles({
+    root: {
+      textAlign: "left",
+    },
+    paper_class: {
+      maxWidth: "90%",
+      height: "75vh",
+      backgroundColor: "#dfe4ea",
+      padding: "3%",
+      margin: "3%",
+    },
+    btn: {
+      backgroundColor: "#cf6a87",
+      color: "#fff",
+      margin: "5%",
+      fontFamily: "Quicksand",
+      "&:hover": {
+        background: "#e66767",
+      },
+    },
+    font: {
+      fontFamily: "Quicksand",
+    },
+  });
 
 class LocationPage extends Component {
   state = {
@@ -34,33 +67,44 @@ class LocationPage extends Component {
     }
   };
   render() {
+    const { classes } = this.props;
     return (
-      <div className="container">
-        <Button>Back</Button>
-        <h3>About You</h3>
-        <h2>Where do you primarily live?</h2>
-        <div className="input">
-          <form onSubmit={this.registerLocation}>
-            <input
-              type="text"
-              name="city"
-              onChange={this.handleInputChangeFor("city")}
-            />
-            <label htmlFor="city">City</label>
-            <br></br>
-            <input
-              type="text"
-              name="zipcode"
-              onChange={this.handleInputChangeFor("zipcode")}
-            />
-            <label htmlFor="zipcode">Zip code</label>
-            <br></br>
-            <Button type="submit">Next</Button>
-          </form>
-        </div>
-      </div>
+      <center>
+        <Paper className={classes.paper_class}>
+          <Container>
+            <Button className={classes.btn}>Back</Button>
+            <h3 className={classes.font}>About You</h3>
+            <h2 className={classes.font}>Where do you primarily live?</h2>
+
+            <form onSubmit={this.registerLocation}>
+              <label className={classes.font} htmlFor="city">
+                City
+              </label>
+              <input
+                type="text"
+                name="city"
+                onChange={this.handleInputChangeFor("city")}
+              />
+              <br></br>
+              <label className={classes.font} htmlFor="zipcode">
+                Zip code
+              </label>
+              <input
+                type="text"
+                name="zipcode"
+                onChange={this.handleInputChangeFor("zipcode")}
+              />
+
+              <br></br>
+              <Button className={classes.btn} type="submit">
+                Next
+              </Button>
+            </form>
+          </Container>
+        </Paper>
+      </center>
     );
   }
 }
 
-export default connect(mapStoreToProps)(LocationPage);
+export default withStyles(customStyles)(connect(mapStoreToProps)(LocationPage));

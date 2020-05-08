@@ -1,8 +1,42 @@
 import React, { Component } from "react";
-import { Button, TextField } from "@material-ui/core";
 import "./RegistrationPages.css";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
+import {
+  Button,
+  Container,
+  Paper,
+  withStyles,
+  createStyles,
+  TextField,
+} from "@material-ui/core";
+import "typeface-quicksand";
+
+const customStyles = (theme) =>
+  createStyles({
+    root: {
+      textAlign: "left",
+    },
+    paper_class: {
+      maxWidth: "90%",
+      height: "75vh",
+      backgroundColor: "#dfe4ea",
+      padding: "3%",
+      margin: "3%",
+    },
+    btn: {
+      backgroundColor: "#cf6a87",
+      color: "#fff",
+      margin: "5%",
+      fontFamily: "Quicksand",
+      "&:hover": {
+        background: "#e66767",
+      },
+    },
+    font: {
+      fontFamily: "Quicksand",
+    },
+  });
 
 class DetailsPage extends Component {
   state = {
@@ -32,26 +66,33 @@ class DetailsPage extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className="container">
-        <Button>Back</Button>
-        <h3>About You</h3>
-        <h2>Introduce Yourself!</h2>
-        <div className="input">
-          <TextField
-            placeholder="How would your friends describe you?"
-            name="Intro"
-            type="text"
-            multiline
-            onChange={this.handleInputChange}
-          />
-        </div>
-        <div>
-          <Button onClick={this.registerDetails}>Next</Button>
-        </div>
-      </div>
+      <center>
+        <Paper className={classes.paper_class}>
+          <Container>
+            <Button className={classes.btn}>Back</Button>
+            <h3 className={classes.font}>About You</h3>
+            <h2 className={classes.font}>Introduce Yourself!</h2>
+
+            <TextField
+              placeholder="How would your friends describe you?"
+              name="Intro"
+              type="text"
+              multiline
+              onChange={this.handleInputChange}
+            />
+
+            <div>
+              <Button className={classes.btn} onClick={this.registerDetails}>
+                Next
+              </Button>
+            </div>
+          </Container>
+        </Paper>
+      </center>
     );
   }
 }
 
-export default connect(mapStoreToProps)(DetailsPage);
+export default withStyles(customStyles)(connect(mapStoreToProps)(DetailsPage));
