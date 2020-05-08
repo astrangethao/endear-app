@@ -8,8 +8,6 @@ import {
 
 import { connect } from "react-redux";
 
-import Nav from "../Nav/Nav";
-
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import AboutPage from "../AboutPage/AboutPage";
@@ -39,7 +37,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -47,15 +44,6 @@ class App extends Component {
             This is a route anyone can see, no login necessary */}
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/home" component={LandingPage} />
-            <Route exact path="/name" component={NamePage} />
-            <Route exact path="/gender" component={GenderPage} />
-            <Route exact path="/dob" component={DobPage} />
-            <Route exact path="/location" component={LocationPage} />
-            <Route exact path="/phone" component={PhonePage} />
-            <Route exact path="/interest" component={InterestPage} />
-            <Route exact path="/photos" component={PhotosPage} />
-            <Route exact path="/details" component={DetailsPage} />
-            <Route exact path="/audio" component={AudioRecordingPage} />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -72,6 +60,7 @@ class App extends Component {
               authRedirect="/admin"
               component={LoginPage}
             />
+
             <ProtectedRoute
               exact
               path="/registration"
@@ -79,6 +68,68 @@ class App extends Component {
               component={RegisterPage}
             />
 
+            <ProtectedRoute
+              exact
+              path="/name"
+              authRedirect="/admin"
+              component={NamePage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/gender"
+              authRedirect="/admin"
+              component={GenderPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/dob"
+              authRedirect="/admin"
+              component={DobPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/location"
+              authRedirect="/admin"
+              component={LocationPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/phone"
+              authRedirect="/admin"
+              component={PhonePage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/interest"
+              authRedirect="/admin"
+              component={InterestPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/photos"
+              authRedirect="/admin"
+              component={PhotosPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/details"
+              authRedirect="/admin"
+              component={DetailsPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/audio"
+              authRedirect="/admin"
+              component={AudioRecordingPage}
+            />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>

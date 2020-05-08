@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import { Button } from "@material-ui/core";
 import Footer from "../Footer/Footer";
+import Nav from "../Nav/Nav";
 
 import "./LandingPage.css";
 
@@ -12,12 +13,16 @@ class LandingPage extends Component {
   };
 
   onLogin = (event) => {
+    this.props.dispatch({
+      type: "SET_TO_REGISTER_MODE",
+    });
     this.props.history.push("/login");
   };
 
   render() {
     return (
-      <div className="container">
+      <div>
+        <Nav />
         <h2>{this.state.heading}</h2>
 
         <div className="grid">

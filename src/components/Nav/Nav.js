@@ -7,8 +7,8 @@ import mapStoreToProps from "../../redux/mapStoreToProps";
 
 const Nav = (props) => {
   let loginLinkData = {
-    path: "/home",
-    text: "Login / Register",
+    path: "/login",
+    text: "Sign In",
   };
 
   if (props.store.user.id != null) {

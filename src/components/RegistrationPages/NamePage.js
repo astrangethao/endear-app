@@ -1,34 +1,78 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
 import "./RegistrationPages.css";
+import { connect } from "react-redux";
+import mapStoreToProps from "../../redux/mapStoreToProps";
 
 class NamePage extends Component {
-  handleBtn = (type) => (event) => {
-    if (type === "back") {
-      alert("Please put in name!");
-    }
+  state = {
+    first_name: "",
+    last_name: "",
+  };
 
-    if (type === "next") {
+  handleInputChangeFor = (propertyName) => (event) => {
+    this.setState({
+      [propertyName]: event.target.value,
+    });
+  };
+
+  registerName = (event) => {
+    event.preventDefault();
+
+    if (this.state.first_name && this.state.last_name) {
+      this.props.dispatch({
+        type: "REGISTER_NAME",
+        payload: {
+          ...this.props.store.registered,
+          ...this.state,
+        },
+      });
+
       this.props.history.push("/gender");
+    } else {
+      this.props.dispatch({ type: "REGISTRATION_NAME_ERROR" });
     }
   };
 
   render() {
     return (
       <div className="container">
-        <Button onClick={this.handleBtn("back")}>Back</Button>
+        <Button>Back</Button>
         <h3>About You</h3>
         <h2>What's your name?</h2>
-        <div className="input">
-          <input placeholder="first name" type="text" />
-          <input placeholder="last name" type="text" />
-        </div>
-        <div>
-          <Button onClick={this.handleBtn("next")}>Next</Button>
-        </div>
+
+        <form className="formPanel" onSubmit={this.registerName}>
+          <div>
+            <label htmlFor="first_name">
+              First Name:
+              <input
+                type="text"
+                name="first_name"
+                value={this.state.first_name}
+                onChange={this.handleInputChangeFor("first_name")}
+              />
+            </label>
+          </div>
+
+          <div>
+            <label htmlFor="last_name">
+              Last Name:
+              <input
+                type="text"
+                name="last_name"
+                value={this.state.last_name}
+                onChange={this.handleInputChangeFor("last_name")}
+              />
+            </label>
+          </div>
+
+          <div>
+            <Button type="submit">Next</Button>
+          </div>
+        </form>
       </div>
     );
   }
 }
 
-export default NamePage;
+export default connect(mapStoreToProps)(NamePage);
