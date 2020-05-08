@@ -13,7 +13,8 @@ import Footer from "../Footer/Footer";
 import Nav from "../Nav/Nav";
 import coupleImage from "../Images/couple.jpg";
 
-import "./LandingPage.css";
+import "typeface-quicksand";
+import "typeface-pacifico";
 
 const customStyles = (theme) =>
   createStyles({
@@ -22,7 +23,7 @@ const customStyles = (theme) =>
     },
     body: {
       padding: "5px",
-      marginBottom: "20%",
+      marginBottom: "5%",
     },
     image: {
       maxWidth: "90%",
@@ -32,9 +33,11 @@ const customStyles = (theme) =>
       backgroundColor: "#6f1e51",
       color: "#fff",
       margin: "5%",
+      fontFamily: "Quicksand",
     },
-    margin: {
+    typography: {
       margin: "2% 0",
+      fontFamily: "Quicksand",
     },
   });
 
@@ -54,11 +57,11 @@ class LandingPage extends Component {
               <Typography
                 component="h1"
                 variant="h2"
-                className={classes.margin}
+                className={classes.typography}
               >
                 The dating app for people who hate dating apps.
               </Typography>
-              <Typography className={classes.margin}>
+              <Typography className={classes.typography}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Curabitur id felis metus. Vestibulum et pulvinar tortor. Morbi
                 pharetra lacus ut ex molestie blandit. Etiam et turpis sit amet
@@ -71,7 +74,7 @@ class LandingPage extends Component {
                 metus.
               </Typography>
 
-              <Typography className={classes.margin}>
+              <Typography className={classes.typography}>
                 Praesent consectetur orci dui, id elementum eros facilisis id.
                 Sed id dolor in augue porttitor faucibus eget sit amet ante.
                 Nunc consectetur placerat pharetra. Aenean gravida ex ut erat

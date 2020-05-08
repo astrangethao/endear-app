@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
-import "./Nav.css";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import {
   AppBar,
@@ -12,19 +11,37 @@ import {
   createStyles,
 } from "@material-ui/core";
 
+import "typeface-pacifico";
+import "typeface-quicksand";
+
 const customStyles = (theme) =>
   createStyles({
     root: {
       flexGrow: "1",
     },
     title: {
+      fontFamily: "Pacifico",
       flexGrow: 1,
+      fontSize: "30px",
+      fontWeight: "700",
+      display: "inline-block",
     },
     nav: {
       background: "#6f1e51",
+      overflow: "hidden",
     },
     nav_right: {
       float: "right",
+    },
+    nav_link: {
+      float: "left",
+      fontFamily: "Quicksand",
+      color: "#f2f2f2",
+      backgroundColor: "#6f1e51",
+      textAlign: "center",
+      padding: "24px 10px",
+      textDecoration: "none",
+      fontSize: "15px",
     },
   });
 
@@ -53,18 +70,23 @@ class Nav extends Component {
             </Typography>
 
             <div className={classes.nav_right}>
-              <Link className="nav-link" to={this.state.loginLinkData.path}>
-                {this.state.loginLinkData.text}
-              </Link>
+              <Typography variant="body1" component="p">
+                <Link
+                  className={classes.nav_link}
+                  to={this.state.loginLinkData.path}
+                >
+                  {this.state.loginLinkData.text}
+                </Link>
+              </Typography>
 
               {/* Show the link to the info page and the logout button if the user is logged in */}
               {this.props.store.user.id && (
-                <>
-                  <Link className="nav-link" to="/info">
+                <Typography variant="body1" component="p">
+                  <Link className={classes.nav_link} to="/info">
                     Info Page
                   </Link>
-                  <LogOutButton className="nav-link" />
-                </>
+                  <LogOutButton />
+                </Typography>
               )}
               {/* Always show this link since the about page is not protected */}
             </div>
