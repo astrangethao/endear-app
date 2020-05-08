@@ -30,12 +30,12 @@ const customStyles = (theme) =>
       padding: "5%",
     },
     btn: {
-      backgroundColor: "#c44569",
+      backgroundColor: "#e66767",
       color: "#fff",
       margin: "5%",
       fontFamily: "Quicksand",
       "&:hover": {
-        background: "#B53471",
+        background: "#cf6a87",
       },
     },
     typography: {

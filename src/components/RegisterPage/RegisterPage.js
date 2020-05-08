@@ -1,6 +1,51 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
+import {
+  Button,
+  Container,
+  Paper,
+  withStyles,
+  createStyles,
+} from "@material-ui/core";
+import "typeface-quicksand";
+import Nav from "../Nav/Nav";
+
+const customStyles = (theme) =>
+  createStyles({
+    root: {
+      textAlign: "left",
+    },
+    paper_class: {
+      maxWidth: "30%",
+      backgroundColor: "#dfe4ea",
+      padding: "3%",
+      margin: "3%",
+    },
+    btn: {
+      backgroundColor: "#cf6a87",
+      color: "#fff",
+      margin: "5%",
+      fontFamily: "Quicksand",
+      "&:hover": {
+        background: "#e66767",
+      },
+    },
+    font: {
+      fontFamily: "Quicksand",
+    },
+    link_btn: {
+      fontFamily: "Quicksand",
+      fontSize: "15px",
+      background: "none",
+      color: "inherit",
+      border: "none",
+      padding: "0",
+      outline: "0",
+      borderBottom: "1px solid #444",
+      cursor: "pointer",
+    },
+  });
 
 class RegisterPage extends Component {
   state = {
@@ -33,50 +78,60 @@ class RegisterPage extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.root}>
+        <Nav />
         {this.props.errors.registrationMessage && (
           <h2 className="alert" role="alert">
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        <form className="formPanel" onSubmit={this.registerUser}>
-          <h1>Register User</h1>
-          <div>
-            <label htmlFor="username">
-              Email:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor("username")}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor("password")}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register"
-            />
-          </div>
-        </form>
+        <center>
+          <Paper className={classes.paper_class}>
+            <Container>
+              <form onSubmit={this.registerUser}>
+                <h1 className={classes.font}>Register User</h1>
+                <div>
+                  <label className={classes.font} htmlFor="username">
+                    Email:
+                    <input
+                      type="text"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.handleInputChangeFor("username")}
+                    />
+                  </label>
+                </div>
+                <div>
+                  <label className={classes.font} htmlFor="password">
+                    Password:
+                    <input
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleInputChangeFor("password")}
+                    />
+                  </label>
+                </div>
+                <div>
+                  <Button
+                    className={classes.btn}
+                    type="submit"
+                    name="submit"
+                    value="Register"
+                  >
+                    Register
+                  </Button>
+                </div>
+              </form>
+            </Container>
+          </Paper>
+        </center>
         <center>
           <button
             type="button"
-            className="link-button"
+            className={classes.link_btn}
             onClick={() => {
               this.props.dispatch({ type: "SET_TO_LOGIN_MODE" });
             }}
@@ -89,4 +144,4 @@ class RegisterPage extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(RegisterPage);
+export default withStyles(customStyles)(connect(mapStoreToProps)(RegisterPage));
