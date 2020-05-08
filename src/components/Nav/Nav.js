@@ -27,7 +27,7 @@ const customStyles = (theme) =>
       display: "inline-block",
     },
     nav: {
-      background: "#6f1e51",
+      background: "#c44569",
       overflow: "hidden",
     },
     nav_right: {
@@ -37,7 +37,7 @@ const customStyles = (theme) =>
       float: "left",
       fontFamily: "Quicksand",
       color: "#f2f2f2",
-      backgroundColor: "#6f1e51",
+      backgroundColor: "#c44569",
       textAlign: "center",
       padding: "24px 10px",
       textDecoration: "none",

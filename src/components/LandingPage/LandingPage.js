@@ -30,7 +30,7 @@ const customStyles = (theme) =>
       padding: "5%",
     },
     btn: {
-      backgroundColor: "#6f1e51",
+      backgroundColor: "#c44569",
       color: "#fff",
       margin: "5%",
       fontFamily: "Quicksand",

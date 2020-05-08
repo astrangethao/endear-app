@@ -23,7 +23,7 @@ const customStyles = (theme) =>
       lineHeight: "1.3",
       fontFamily: "Quicksand",
       fontSize: "20px",
-      backgroundColor: "#6f1e51",
+      backgroundColor: "#c44569",
     },
     footer_ul: {
       display: "inline-grid",
