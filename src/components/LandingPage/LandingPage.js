@@ -46,7 +46,10 @@ const customStyles = (theme) =>
 
 class LandingPage extends Component {
   onRegister = (event) => {
-    this.props.history.push("/registration");
+    this.props.dispatch({
+      type: "SET_TO_REGISTER_MODE",
+    });
+    this.props.history.push("/login");
   };
 
   render() {

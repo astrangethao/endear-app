@@ -5,20 +5,10 @@ import { Button } from "@material-ui/core";
 import "./RegistrationPages.css";
 
 class AudioRecordingPage extends Component {
-  handleBtn = (type) => (event) => {
-    if (type === "back") {
-      this.props.history.push("/details");
-    }
-
-    if (type === "next") {
-      this.props.history.push("/audio");
-    }
-  };
-
   render() {
     return (
       <div className="container">
-        <Button onClick={this.handleBtn("back")}>Back</Button>
+        <Button>Back</Button>
         <h3>About You</h3>
         <h2>Record Yourself!</h2>
         <div className="input">
@@ -42,4 +32,4 @@ class AudioRecordingPage extends Component {
   }
 }
 
-export default AudioRecordingPage;
+export default connect(mapStoreToProps)(AudioRecordingPage);

@@ -25,7 +25,56 @@ router.post("/register", (req, res, next) => {
     'INSERT INTO "user_account" (username, password) VALUES ($1, $2) RETURNING id';
   pool
     .query(queryText, [username, password])
-    .then(() => res.sendStatus(201))
+    .then((response) => {
+      res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.post("/location/:id", (req, res, next) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+
+  const queryText =
+    'INSERT INTO "location" (city, zipcode, user_account_id) VALUES ($1, $2, $3) RETURNING id';
+  pool
+    .query(queryText, [newUser.city, newUser.zipcode, userId])
+    .then((response) => {
+      res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.post("/interest/:id", (req, res, next) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+
+  const queryText =
+    'INSERT INTO "interested_in_gender" (user_account_id, gender_id) VALUES ($1, $2) RETURNING id';
+  pool
+    .query(queryText, [userId, newUser.gender_id])
+    .then((response) => {
+      res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.post("/photos/:id", (req, res, next) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log("INTEREST POST:", userId, newUser);
+
+  const queryText =
+    'INSERT INTO "user_photo" (user_account_id, link) VALUES ($1, $2) RETURNING id';
+  pool
+    .query(queryText, [userId, newUser.link])
+    .then((response) => {
+      res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
     .catch(() => res.sendStatus(500));
 });
 
@@ -42,6 +91,83 @@ router.post("/logout", (req, res) => {
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
+});
+
+router.put("/names/:id", (req, res) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+
+  const queryText = `UPDATE "user_account" SET "first_name"= $1, "last_name"=$2 WHERE "id" = $3;`;
+
+  pool
+    .query(queryText, [newUser.first_name, newUser.last_name, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
+});
+
+router.put("/gender/:id", (req, res) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+
+  const queryText = `UPDATE "user_account" SET "gender_id"= $1 WHERE "id" = $2;`;
+
+  pool
+    .query(queryText, [newUser.gender_id, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
+});
+
+router.put("/dob/:id", (req, res) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+
+  const queryText = `UPDATE "user_account" SET "dob"= $1 WHERE "id" = $2;`;
+
+  pool
+    .query(queryText, [newUser.dob, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
+});
+
+router.put("/phone/:id", (req, res) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log(newUser.phone_number);
+
+  const queryText = `UPDATE "user_account" SET "phone_number"= $1 WHERE "id" = $2;`;
+
+  pool
+    .query(queryText, [newUser.phone_number, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
+});
+
+router.put("/details/:id", (req, res) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log(newUser.details);
+
+  const queryText = `UPDATE "user_account" SET "details"= $1 WHERE "id" = $2;`;
+
+  pool
+    .query(queryText, [newUser.details, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

@@ -1,36 +1,57 @@
 import React, { Component } from "react";
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import "./RegistrationPages.css";
+import { connect } from "react-redux";
+import mapStoreToProps from "../../redux/mapStoreToProps";
 
 class DetailsPage extends Component {
-  handleBtn = (type) => (event) => {
-    if (type === "back") {
-      this.props.history.push("/photos");
-    }
+  state = {
+    details: "",
+  };
 
-    if (type === "next") {
+  handleInputChange = (event) => {
+    this.setState({
+      details: event.target.value,
+    });
+  };
+
+  registerDetails = (event) => {
+    if (this.state.details) {
+      this.props.dispatch({
+        type: "REGISTER_DETAILS",
+        payload: {
+          ...this.props.store.registered,
+          ...this.state,
+        },
+      });
+
       this.props.history.push("/audio");
+    } else {
+      this.props.dispatch({ type: "REGISTRATION_DETAILS_ERROR" });
     }
   };
 
   render() {
     return (
       <div className="container">
-        <Button onClick={this.handleBtn("back")}>Back</Button>
+        <Button>Back</Button>
         <h3>About You</h3>
         <h2>Introduce Yourself!</h2>
         <div className="input">
-          <input
+          <TextField
             placeholder="How would your friends describe you?"
+            name="Intro"
             type="text"
+            multiline
+            onChange={this.handleInputChange}
           />
         </div>
         <div>
-          <Button onClick={this.handleBtn("next")}>Next</Button>
+          <Button onClick={this.registerDetails}>Next</Button>
         </div>
       </div>
     );
   }
 }
 
-export default DetailsPage;
+export default connect(mapStoreToProps)(DetailsPage);
