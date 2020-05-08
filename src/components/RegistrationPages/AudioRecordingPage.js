@@ -12,11 +12,11 @@ class AudioRecordingPage extends Component {
         <h3>About You</h3>
         <h2>Record Yourself!</h2>
         <div className="input">
-          <input placeholder="Audio" type="text" multiline />
+          <input placeholder="Audio" type="text" />
         </div>
         <div>
           <center>
-            <Button
+            {/* <Button
               type="button"
               className="link-button"
               onClick={() => {
@@ -24,7 +24,7 @@ class AudioRecordingPage extends Component {
               }}
             >
               Login
-            </Button>
+            </Button> */}
           </center>
         </div>
       </div>
