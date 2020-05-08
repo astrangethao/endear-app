@@ -25,9 +25,16 @@ const customStyles = (theme) =>
       marginBottom: "20%",
     },
     image: {
-      maxHeight: "90%",
       maxWidth: "90%",
       padding: "5%",
+    },
+    btn: {
+      backgroundColor: "#6f1e51",
+      color: "#fff",
+      margin: "5%",
+    },
+    margin: {
+      margin: "2% 0",
     },
   });
 
@@ -44,10 +51,14 @@ class LandingPage extends Component {
         <Container maxWidth={false}>
           <Grid container spacing={2} className={classes.root}>
             <Grid item xs={6} className={classes.body}>
-              <Typography component="h1" variant="h2">
+              <Typography
+                component="h1"
+                variant="h2"
+                className={classes.margin}
+              >
                 The dating app for people who hate dating apps.
               </Typography>
-              <p>
+              <Typography className={classes.margin}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Curabitur id felis metus. Vestibulum et pulvinar tortor. Morbi
                 pharetra lacus ut ex molestie blandit. Etiam et turpis sit amet
@@ -58,9 +69,9 @@ class LandingPage extends Component {
                 nulla ac dignissim efficitur. Quisque eget eros metus.
                 Vestibulum bibendum fringilla nibh a luctus. Duis a sapien
                 metus.
-              </p>
+              </Typography>
 
-              <p>
+              <Typography className={classes.margin}>
                 Praesent consectetur orci dui, id elementum eros facilisis id.
                 Sed id dolor in augue porttitor faucibus eget sit amet ante.
                 Nunc consectetur placerat pharetra. Aenean gravida ex ut erat
@@ -69,10 +80,10 @@ class LandingPage extends Component {
                 Proin euismod, augue at condimentum rhoncus, massa lorem semper
                 lacus, sed lobortis augue mi vel felis. Duis ultrices sapien at
                 est convallis congue.
-              </p>
+              </Typography>
 
               <Button
-                className="btn "
+                className={classes.btn}
                 color="primary"
                 onClick={this.onRegister}
               >

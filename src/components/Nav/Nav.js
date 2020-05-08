@@ -1,9 +1,23 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import "./Nav.css";
 import mapStoreToProps from "../../redux/mapStoreToProps";
+import {
+  Container,
+  Grid,
+  Typography,
+  withStyles,
+  createStyles,
+} from "@material-ui/core";
+
+const customStyles = (theme) =>
+  createStyles({
+    root: {
+      textAlign: "left",
+    },
+  });
 
 const Nav = (props) => {
   let loginLinkData = {
@@ -43,4 +57,4 @@ const Nav = (props) => {
   );
 };
 
-export default connect(mapStoreToProps)(Nav);
+export default withStyles(customStyles)(connect(mapStoreToProps)(Nav));
