@@ -38,6 +38,7 @@ router.post("/location/:id", (req, res, next) => {
 
   const queryText =
     'INSERT INTO "location" (city, zipcode, user_account_id) VALUES ($1, $2, $3) RETURNING id';
+
   pool
     .query(queryText, [newUser.city, newUser.zipcode, userId])
     .then((response) => {

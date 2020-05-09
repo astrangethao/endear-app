@@ -65,6 +65,7 @@ class LocationPage extends Component {
       this.props.dispatch({ type: "REGISTRATION_LOCATION_ERROR" });
     }
   };
+
   render() {
     const { classes } = this.props;
     return (
