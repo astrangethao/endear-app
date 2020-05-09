@@ -80,15 +80,13 @@ class Nav extends Component {
               </Typography>
 
               {/* Show the link to the info page and the logout button if the user is logged in */}
-              {this.props.store.user.id && (
+              {/* {this.props.store.user.id && (
                 <Typography variant="body1" component="p">
                   <Link className={classes.nav_link} to="/info">
                     Info Page
                   </Link>
-                  <LogOutButton />
                 </Typography>
-              )}
-              {/* Always show this link since the about page is not protected */}
+              )} */}
             </div>
           </Toolbar>
         </AppBar>

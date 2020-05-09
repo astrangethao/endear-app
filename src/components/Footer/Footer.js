@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Footer.css";
 import { Link } from "react-router-dom";
-import { Typography, withStyles, createStyles } from "@material-ui/core";
+import { withStyles, createStyles } from "@material-ui/core";
 
 import "typeface-pacifico";
 import "typeface-quicksand";
@@ -46,18 +46,16 @@ class Footer extends Component {
         <div className={classes.footer_div}>
           <ul className={classes.footer_ul}>
             <li>
-              <a href="#">Contact</a>
+              <Link to="/about">Contact</Link>
             </li>
             <li>
-              <Link to="/about">
-                <a href="#">About</a>
-              </Link>
+              <Link to="/about">About</Link>
             </li>
             <li>
-              <a href="#">Tips</a>
+              <Link to="/about">Tips</Link>
             </li>
             <li>
-              <a href="#">Follow</a>
+              <Link to="/about">Follow</Link>
             </li>
           </ul>
           {/* <li className={classes.listItem}>

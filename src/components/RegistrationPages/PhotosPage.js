@@ -10,6 +10,7 @@ import {
   createStyles,
 } from "@material-ui/core";
 import "typeface-quicksand";
+import UploadDisplay from "./UploadDisplay";
 
 const dropStyles = {
   width: "200px",
@@ -81,7 +82,9 @@ class PhotosPage extends Component {
               style={dropStyles}
               maxSize={1024 * 1024 * 5}
               upload={uploadOptions}
-            />
+            >
+              <UploadDisplay />
+            </DropzoneS3Uploader>
 
             <div>
               <Button className={classes.btn} onClick={this.handleBtnNext}>
