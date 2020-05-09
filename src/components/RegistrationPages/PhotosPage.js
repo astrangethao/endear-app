@@ -11,6 +11,12 @@ import {
 } from "@material-ui/core";
 import "typeface-quicksand";
 
+const dropStyles = {
+  width: "200px",
+  height: "200px",
+  border: "2px solid #cf6a87",
+};
+
 const customStyles = (theme) =>
   createStyles({
     root: {
@@ -72,6 +78,7 @@ class PhotosPage extends Component {
             <DropzoneS3Uploader
               onFinish={this.handleFinishedUpload}
               s3Url={s3Url}
+              style={dropStyles}
               maxSize={1024 * 1024 * 5}
               upload={uploadOptions}
             />
