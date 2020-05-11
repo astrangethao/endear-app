@@ -11,9 +11,29 @@ const router = express.Router();
 // Handles Ajax request for user information if user is authenticated
 router.get("/", rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
+
   res.send(req.user);
 });
 
+router.get("/info", rejectUnauthenticated, (req, res) => {
+  // Send back user object from the session (previously queried from the database)
+  const userId = req.user.id;
+  console.log("USERID:", userId);
+
+  const queryText = `SELECT "user_account".username,  "gender".name as "gender", "location".city as "city", "location".zipcode as "zip_code", "user_photo".link as "user_photo"
+  FROM "user_account" 
+    JOIN "location" ON "location".user_account_id = "user_account".id
+    JOIN "gender" ON "gender".id = "user_account".gender_id
+    JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id
+    WHERE "user_account".id = $1;`;
+  pool
+    .query(queryText, [userId])
+    .then((response) => {
+      console.log(response.rows);
+      res.send(response.rows);
+    })
+    .catch(() => res.sendStatus(500));
+});
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
