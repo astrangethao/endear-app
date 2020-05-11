@@ -44,18 +44,8 @@ class UserPage extends Component {
   }
   render() {
     const { classes } = this.props;
-    // console.log(
-    //   "USER DETAILS:",
-    //   this.props.store.userDetails.map((item) => {
-    //     return (
-    //       <div key={item.id}>
-    //         <p>{item.gender}</p>
-    //       </div>
-    //     );
-    //   })
-    // );
-    const detail = this.props.store.userDetails;
-    console.log("DETAIL:", detail[0]);
+    const detail = this.props.store.userDetails || [];
+    console.log("DETAIL:", detail);
 
     return (
       <div>
@@ -79,7 +69,23 @@ class UserPage extends Component {
               <p className={classes.font}>
                 Phone Number: {this.props.store.user.phone_number}
               </p>
-              <p className={classes.font}>Location: </p>
+              <div className={classes.font}>
+                {detail.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <p>
+                        Location: {item.city} {item.zip_code}
+                      </p>
+                      <img
+                        src={item.user_photo}
+                        alt="profile"
+                        style={{ maxWidth: "400px", maxHeight: "200px" }}
+                      />
+                      <p>Gender: {item.gender}</p>
+                    </div>
+                  );
+                })}
+              </div>
               <LogOutButton className="log-in" />
             </Container>
           </Paper>

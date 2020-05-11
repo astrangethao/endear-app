@@ -25,15 +25,33 @@ router.get("/info", rejectUnauthenticated, (req, res) => {
     JOIN "location" ON "location".user_account_id = "user_account".id
     JOIN "gender" ON "gender".id = "user_account".gender_id
     JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id
-    WHERE "user_account".id = $1;`;
+    WHERE "user_account".id = $1;
+  `;
   pool
     .query(queryText, [userId])
     .then((response) => {
-      console.log(response.rows);
+      console.log("RESPONSE:", response.rows);
       res.send(response.rows);
     })
     .catch(() => res.sendStatus(500));
 });
+
+// router.get("/gender-filter", rejectUnauthenticated, (req, res) => {
+//   const userId = req.user.id;
+//   const queryText = `SELECT "gender".name as "gender_preference", "user_account".username, "user_account".first_name, "user_account".last_name, "user_account".details, "user_account".dob, "user_account".phone_number
+//   FROM "interested_in_gender"
+//     JOIN "gender" ON "gender".id = "interested_in_gender" .gender_id
+//     JOIN "user_account" ON "user_account".id = "interested_in_gender".user_account_id;
+//   `;
+
+//   pool
+//     .query(queryText, [userId])
+//     .then((response) => {
+//       console.log(response.rows);
+//       res.send(response.rows);
+//     })
+//     .catch(() => res.sendStatus(500));
+// });
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
