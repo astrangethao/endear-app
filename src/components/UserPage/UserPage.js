@@ -4,13 +4,7 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
-import {
-  Button,
-  Container,
-  Paper,
-  withStyles,
-  createStyles,
-} from "@material-ui/core";
+import { Container, Paper, withStyles, createStyles } from "@material-ui/core";
 import "typeface-quicksand";
 
 const customStyles = (theme) =>
@@ -69,15 +63,23 @@ class UserPage extends Component {
         <center>
           <Paper className={classes.paper_class}>
             <Container>
-              <h1 id="welcome">Welcome, {this.props.store.user.username}!</h1>
-              <p>Your ID is: {this.props.store.user.id}</p>
-              <p>
+              <h1 className={classes.font} id="welcome">
+                Welcome, {this.props.store.user.username}!
+              </h1>
+              <p className={classes.font}>
+                Your ID is: {this.props.store.user.id}
+              </p>
+              <p className={classes.font}>
                 Your Name is: {this.props.store.user.first_name}{" "}
                 {this.props.store.user.last_name}
               </p>
-              <p>Details: {this.props.store.user.details}</p>
-              <p>PhoneNumber: {this.props.store.user.phone_number}</p>
-              <p>Location: </p>
+              <p className={classes.font}>
+                Details: {this.props.store.user.details}
+              </p>
+              <p className={classes.font}>
+                Phone Number: {this.props.store.user.phone_number}
+              </p>
+              <p className={classes.font}>Location: </p>
               <LogOutButton className="log-in" />
             </Container>
           </Paper>
