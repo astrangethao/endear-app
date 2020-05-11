@@ -12,7 +12,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
-import InfoPage from "../InfoPage/InfoPage";
+import MatchPage from "../MatchPage/MatchPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
@@ -44,6 +44,9 @@ class App extends Component {
             This is a route anyone can see, no login necessary */}
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/home" component={LandingPage} />
+
+            <Route exact path="/audio" component={AudioRecordingPage} />
+            {/* <Route exact path="/photos" component={PhotosPage} /> */}
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -51,7 +54,7 @@ class App extends Component {
             <ProtectedRoute exact path="/admin" component={UserPage} />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
-            <ProtectedRoute exact path="/info" component={InfoPage} />
+            <ProtectedRoute exact path="/match" component={MatchPage} />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will be redirected to the authRedirect path provided. */}
             <ProtectedRoute
@@ -124,12 +127,12 @@ class App extends Component {
               component={DetailsPage}
             />
 
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/audio"
               authRedirect="/admin"
               component={AudioRecordingPage}
-            />
+            /> */}
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>

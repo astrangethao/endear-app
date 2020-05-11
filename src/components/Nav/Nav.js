@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import LogOutButton from "../LogOutButton/LogOutButton";
+// import LogOutButton from "../LogOutButton/LogOutButton";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import {
   AppBar,
@@ -30,11 +30,7 @@ const customStyles = (theme) =>
       background: "#c44569",
       overflow: "hidden",
     },
-    nav_right: {
-      float: "right",
-    },
     nav_link: {
-      float: "left",
       fontFamily: "Quicksand",
       color: "#f2f2f2",
       backgroundColor: "#c44569",
@@ -42,6 +38,10 @@ const customStyles = (theme) =>
       padding: "24px 10px",
       textDecoration: "none",
       fontSize: "15px",
+    },
+    nav_item: {
+      display: "flex",
+      flexDirection: "row",
     },
   });
 
@@ -56,7 +56,7 @@ class Nav extends Component {
   render() {
     if (this.props.store.user.id != null) {
       this.state.loginLinkData.path = "/admin";
-      this.state.loginLinkData.text = "Home";
+      this.state.loginLinkData.text = "Profile";
     }
 
     const { classes } = this.props;
@@ -69,7 +69,33 @@ class Nav extends Component {
               <Link to="/home">Endear</Link>
             </Typography>
 
-            <div className={classes.nav_right}>
+            {/* Show the link to the info page and the logout button if the user is logged in */}
+
+            <div className={classes.nav_item}>
+              {this.props.store.user.id && (
+                <Typography variant="body1" component="p">
+                  <Link className={classes.nav_link} to="/match">
+                    Matches
+                  </Link>
+                </Typography>
+              )}
+
+              {this.props.store.user.id && (
+                <Typography variant="body1" component="p">
+                  <Link className={classes.nav_link} to="/likes">
+                    Likes
+                  </Link>
+                </Typography>
+              )}
+
+              {this.props.store.user.id && (
+                <Typography variant="body1" component="p">
+                  <Link className={classes.nav_link} to="/messages">
+                    Messages
+                  </Link>
+                </Typography>
+              )}
+
               <Typography variant="body1" component="p">
                 <Link
                   className={classes.nav_link}
@@ -78,17 +104,6 @@ class Nav extends Component {
                   {this.state.loginLinkData.text}
                 </Link>
               </Typography>
-
-              {/* Show the link to the info page and the logout button if the user is logged in */}
-              {this.props.store.user.id && (
-                <Typography variant="body1" component="p">
-                  <Link className={classes.nav_link} to="/info">
-                    Info Page
-                  </Link>
-                  <LogOutButton />
-                </Typography>
-              )}
-              {/* Always show this link since the about page is not protected */}
             </div>
           </Toolbar>
         </AppBar>
