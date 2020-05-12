@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Typography,
   Paper,
   withStyles,
   createStyles,
@@ -41,8 +40,23 @@ const customStyles = (theme) =>
   });
 
 class MatchPage extends Component {
+  componentDidMount() {
+    this.props.dispatch({
+      type: "FETCH_USER_DETAILS",
+    });
+    this.props.dispatch({
+      type: "GET_MATCHES",
+      payload: this.props.store.userDetails.map((item) => {
+        return item.gender_preference;
+      }),
+    });
+  }
   render() {
     const { classes } = this.props;
+    // const genderPreference = this.props.store.userDetails.map((item) => {
+    //   return item.gender_preference;
+    // });
+
     return (
       <div>
         <Nav />
@@ -55,7 +69,9 @@ class MatchPage extends Component {
                     (this.props.store.user.first_name,
                     this.props.store.user.last_name)
                   }
-                  subheader={this.props.store.user.dob}
+                  subheader={this.props.store.userDetails.map((item) => {
+                    return item.gender_preference;
+                  })}
                 />
                 <CardContent></CardContent>
               </Card>

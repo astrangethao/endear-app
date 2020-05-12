@@ -18,17 +18,31 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 router.get("/info", rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
   const userId = req.user.id;
-  console.log("USERID:", userId);
 
-  const queryText = `SELECT "user_account".username,  "gender".name as "gender", "location".city as "city", "location".zipcode as "zip_code", "user_photo".link as "user_photo"
+  const queryText = `SELECT "user_account".username,  "gender".name as "gender", "location".city as "city", "location".zipcode as "zip_code", "user_photo".link as "user_photo",
+  "interested_in_gender".gender_id as "gender_preference"
   FROM "user_account" 
     JOIN "location" ON "location".user_account_id = "user_account".id
     JOIN "gender" ON "gender".id = "user_account".gender_id
     JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id
+    JOIN "interested_in_gender" ON "interested_in_gender".user_account_id = "user_account".id
     WHERE "user_account".id = $1;
   `;
   pool
     .query(queryText, [userId])
+    .then((response) => {
+      res.send(response.rows);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.get("/match", rejectUnauthenticated, (req, res) => {
+  const genderId = req.userDetails.gender_preference;
+  queryText = `SELECT * FROM "user_account" WHERE "user_account".gender_id = $1;`;
+  console.log("GENDER ID:", genderId);
+
+  pool
+    .query(queryText, [genderId])
     .then((response) => {
       console.log("RESPONSE:", response.rows);
       res.send(response.rows);
@@ -36,22 +50,6 @@ router.get("/info", rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500));
 });
 
-// router.get("/gender-filter", rejectUnauthenticated, (req, res) => {
-//   const userId = req.user.id;
-//   const queryText = `SELECT "gender".name as "gender_preference", "user_account".username, "user_account".first_name, "user_account".last_name, "user_account".details, "user_account".dob, "user_account".phone_number
-//   FROM "interested_in_gender"
-//     JOIN "gender" ON "gender".id = "interested_in_gender" .gender_id
-//     JOIN "user_account" ON "user_account".id = "interested_in_gender".user_account_id;
-//   `;
-
-//   pool
-//     .query(queryText, [userId])
-//     .then((response) => {
-//       console.log(response.rows);
-//       res.send(response.rows);
-//     })
-//     .catch(() => res.sendStatus(500));
-// });
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted

@@ -37,43 +37,54 @@ const customStyles = (theme) =>
     },
   });
 
+let rec;
+
 class AudioRecordingPage extends Component {
   state = {
-    audioDetails: {
-      url: null,
-      blob: null,
-      chunks: null,
-      duration: {
-        h: 0,
-        m: 0,
-        s: 0,
-      },
-    },
+    audioSrc: "",
+    audioChunks: [],
+    isRecording: false,
   };
 
-  handleAudioStop(data) {
-    this.setState({ audioDetails: data }, () => {
-      console.log("AUDIO DETAILS:", this.state);
+  componentDidMount() {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+      this.handlerFunction(stream);
     });
   }
 
-  handleAudioUpload(file) {
-    console.log("FILE:", file);
+  handlerFunction(stream) {
+    rec = new MediaRecorder(stream);
+    rec.ondataavailable = (e) => {
+      this.state.audioChunks.push(e.data);
+      if (rec.state == "inactive") {
+        let blob = new Blob(this.state.audioChunks, {
+          type: "audio/wav;codecs=MS_PCM",
+        });
+
+        this.setState({
+          audioSrc: URL.createObjectURL(blob),
+        });
+        // sendData(blob);
+      }
+    };
   }
 
-  handleRest() {
-    const reset = {
-      url: null,
-      blob: null,
-      chunks: null,
-      duration: {
-        h: 0,
-        m: 0,
-        s: 0,
-      },
-    };
-    this.setState({ audioDetails: reset });
-  }
+  record = (e) => {
+    console.log("I was clicked");
+    this.setState({
+      isRecording: true,
+      audioChunks: [],
+    });
+    rec.start();
+  };
+
+  stopRecord = (e) => {
+    console.log("I was clicked");
+    this.setState({
+      isRecording: false,
+    });
+    rec.stop();
+  };
 
   render() {
     const { classes } = this.props;
@@ -84,22 +95,20 @@ class AudioRecordingPage extends Component {
             <Button className={classes.btn}>Back</Button>
             <h3 className={classes.font}>About You</h3>
             <h2 className={classes.font}>Record Yourself!</h2>
-
-            <Recorder
-              style={{
-                width: "600px",
-                height: "600px",
-                backgroundColor: "white",
-              }}
-              record={true}
-              title={"New recording"}
-              audioURL={this.state.audioDetails.url}
-              showUIAudio
-              handleAudioStop={(data) => this.handleAudioStop(data)}
-              handleAudioUpload={(data) => this.handleAudioUpload(data)}
-              handleRest={() => this.handleRest()}
-            />
-
+            <Button onClick={this.record} disabled={this.state.isRecording}>
+              {this.state.isRecording ? "RECORDING" : "RECORD"}
+            </Button>
+            <Button
+              onClick={this.stopRecord}
+              disabled={!this.state.isRecording}
+            >
+              STOP
+            </Button>
+            <audio
+              hidden={!this.state.audioSrc}
+              src={this.state.audioSrc}
+              controls={true}
+            ></audio>
             <center>
               <Button
                 type="button"
