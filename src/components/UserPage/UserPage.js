@@ -53,39 +53,35 @@ class UserPage extends Component {
         <center>
           <Paper className={classes.paper_class}>
             <Container>
-              <h1 className={classes.font} id="welcome">
-                Welcome, {this.props.store.user.username}!
-              </h1>
-              <p className={classes.font}>
-                Your ID is: {this.props.store.user.id}
-              </p>
-              <p className={classes.font}>
-                Your Name is: {this.props.store.user.first_name}{" "}
-                {this.props.store.user.last_name}
-              </p>
+              <div className={classes.font}>
+                {detail.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <img
+                        src={item.user_photo}
+                        alt="profile"
+                        style={{ maxWidth: "400px", maxHeight: "200px" }}
+                      />
+                      <p>
+                        {this.props.store.user.first_name}{" "}
+                        {this.props.store.user.last_name}
+                      </p>
+                      <p>Location: {item.city}</p>
+                      <p>Zip Code: {item.zip_code}</p>
+
+                      <p>Gender: {item.gender}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
               <p className={classes.font}>
                 Details: {this.props.store.user.details}
               </p>
               <p className={classes.font}>
                 Phone Number: {this.props.store.user.phone_number}
               </p>
-              <div className={classes.font}>
-                {detail.map((item, index) => {
-                  return (
-                    <div key={index}>
-                      <p>
-                        Location: {item.city} {item.zip_code}
-                      </p>
-                      <img
-                        src={item.user_photo}
-                        alt="profile"
-                        style={{ maxWidth: "400px", maxHeight: "200px" }}
-                      />
-                      <p>Gender: {item.gender}</p>
-                    </div>
-                  );
-                })}
-              </div>
+
               <LogOutButton className="log-in" />
             </Container>
           </Paper>

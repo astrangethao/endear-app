@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
-import { Recorder } from "react-voice-recorder";
+import DropzoneS3Uploader from "react-dropzone-s3-uploader";
+import UploadDisplay from "./UploadDisplay";
 import {
   Button,
   Container,
@@ -10,6 +11,12 @@ import {
   createStyles,
 } from "@material-ui/core";
 import "typeface-quicksand";
+
+const dropStyles = {
+  width: "200px",
+  height: "200px",
+  border: "2px solid #cf6a87",
+};
 
 const customStyles = (theme) =>
   createStyles({
@@ -26,7 +33,8 @@ const customStyles = (theme) =>
     btn: {
       backgroundColor: "#cf6a87",
       color: "#fff",
-      margin: "5%",
+      width: "100px",
+      margin: "5px",
       fontFamily: "Quicksand",
       "&:hover": {
         background: "#e66767",
@@ -34,6 +42,11 @@ const customStyles = (theme) =>
     },
     font: {
       fontFamily: "Quicksand",
+    },
+    audio: {
+      display: "flex",
+      flexDirection: "column",
+      margin: "20px",
     },
   });
 
@@ -52,11 +65,21 @@ class AudioRecordingPage extends Component {
     });
   }
 
+  handleFinishedUpload = (info) => {
+    this.props.dispatch({
+      type: "REGISTER_AUDIO",
+      payload: {
+        ...this.props.store.registered,
+        link: info.fileUrl,
+      },
+    });
+  };
+
   handlerFunction(stream) {
     rec = new MediaRecorder(stream);
     rec.ondataavailable = (e) => {
       this.state.audioChunks.push(e.data);
-      if (rec.state == "inactive") {
+      if (rec.state === "inactive") {
         let blob = new Blob(this.state.audioChunks, {
           type: "audio/wav;codecs=MS_PCM",
         });
@@ -64,7 +87,7 @@ class AudioRecordingPage extends Component {
         this.setState({
           audioSrc: URL.createObjectURL(blob),
         });
-        // sendData(blob);
+        console.log("AUDIO SRC:", this.state.audioSrc);
       }
     };
   }
@@ -88,6 +111,10 @@ class AudioRecordingPage extends Component {
 
   render() {
     const { classes } = this.props;
+    const uploadOptions = {
+      server: "http://localhost:5000",
+    };
+    const s3Url = "https://astrangethaobucket.s3.amazonaws.com";
     return (
       <center>
         <Paper className={classes.paper_class}>
@@ -95,20 +122,38 @@ class AudioRecordingPage extends Component {
             <Button className={classes.btn}>Back</Button>
             <h3 className={classes.font}>About You</h3>
             <h2 className={classes.font}>Record Yourself!</h2>
-            <Button onClick={this.record} disabled={this.state.isRecording}>
-              {this.state.isRecording ? "RECORDING" : "RECORD"}
-            </Button>
-            <Button
-              onClick={this.stopRecord}
-              disabled={!this.state.isRecording}
+            <div className={classes.audio}>
+              <Button
+                className={classes.btn}
+                onClick={this.record}
+                disabled={this.state.isRecording}
+              >
+                {this.state.isRecording ? "RECORDING" : "RECORD"}
+              </Button>
+              <Button
+                className={classes.btn}
+                onClick={this.stopRecord}
+                disabled={!this.state.isRecording}
+              >
+                STOP
+              </Button>
+              <audio
+                hidden={!this.state.audioSrc}
+                src={this.state.audioSrc}
+                controls={true}
+              ></audio>
+            </div>
+
+            <DropzoneS3Uploader
+              onFinish={this.handleFinishedUpload}
+              s3Url={s3Url}
+              style={dropStyles}
+              maxSize={1024 * 1024 * 5}
+              upload={uploadOptions}
             >
-              STOP
-            </Button>
-            <audio
-              hidden={!this.state.audioSrc}
-              src={this.state.audioSrc}
-              controls={true}
-            ></audio>
+              <UploadDisplay />
+            </DropzoneS3Uploader>
+
             <center>
               <Button
                 type="button"
