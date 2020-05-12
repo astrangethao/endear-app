@@ -19,13 +19,14 @@ router.get("/info", rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
   const userId = req.user.id;
 
-  const queryText = `SELECT "user_account".username,  "gender".name as "gender", "location".city as "city", "location".zipcode as "zip_code", "user_photo".link as "user_photo",
+  const queryText = `SELECT "user_account".first_name, "user_account".last_name, "gender".name as "gender", "location".city as "city", "location".zipcode as "zip_code", "user_photo".link as "user_photo", "audio_clip".audio as "audio_link",
   "interested_in_gender".gender_id as "gender_preference"
-  FROM "user_account"
+  FROM "user_account" 
     JOIN "location" ON "location".user_account_id = "user_account".id
     JOIN "gender" ON "gender".id = "user_account".gender_id
     JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id
     JOIN "interested_in_gender" ON "interested_in_gender".user_account_id = "user_account".id
+    JOIN "audio_clip" ON "audio_clip".user_account_id = "user_account".id
     WHERE "user_account".id = $1;
   `;
   pool
@@ -38,9 +39,10 @@ router.get("/info", rejectUnauthenticated, (req, res) => {
 
 router.get("/match", rejectUnauthenticated, (req, res) => {
   // const genderId = req.userDetails.gender_preference;
-  queryText = `SELECT "user_account".id as "user_id", "user_account".first_name, "user_account".last_name, "user_account".details, "user_account".gender_id, "user_account".dob, "user_account".phone_number, "user_photo".link, "location".city, "location".zipcode FROM "user_account"
+  queryText = `SELECT "user_account".id as "user_id", "user_account".first_name, "user_account".last_name, "user_account".details, "user_account".gender_id, "user_account".dob, "user_account".phone_number, "user_photo".link, "audio_clip".audio,"location".city, "location".zipcode FROM "user_account"
   JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id
   JOIN "location" ON "location".user_account_id = "user_account".id
+  JOIN "audio_clip" ON "audio_clip".user_account_id = "user_account".id
   ORDER BY "user_account".gender_id;`;
 
   pool
