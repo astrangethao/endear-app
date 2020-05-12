@@ -21,7 +21,7 @@ router.get("/info", rejectUnauthenticated, (req, res) => {
 
   const queryText = `SELECT "user_account".username,  "gender".name as "gender", "location".city as "city", "location".zipcode as "zip_code", "user_photo".link as "user_photo",
   "interested_in_gender".gender_id as "gender_preference"
-  FROM "user_account" 
+  FROM "user_account"
     JOIN "location" ON "location".user_account_id = "user_account".id
     JOIN "gender" ON "gender".id = "user_account".gender_id
     JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id
@@ -37,12 +37,14 @@ router.get("/info", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/match", rejectUnauthenticated, (req, res) => {
-  const genderId = req.userDetails.gender_preference;
-  queryText = `SELECT * FROM "user_account" WHERE "user_account".gender_id = $1;`;
-  console.log("GENDER ID:", genderId);
+  // const genderId = req.userDetails.gender_preference;
+  queryText = `SELECT "user_account".id as "user_id", "user_account".first_name, "user_account".last_name, "user_account".details, "user_account".gender_id, "user_account".dob, "user_account".phone_number, "user_photo".link, "location".city, "location".zipcode FROM "user_account"
+  JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id
+  JOIN "location" ON "location".user_account_id = "user_account".id
+  ORDER BY "user_account".gender_id;`;
 
   pool
-    .query(queryText, [genderId])
+    .query(queryText)
     .then((response) => {
       console.log("RESPONSE:", response.rows);
       res.send(response.rows);
