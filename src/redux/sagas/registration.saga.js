@@ -127,9 +127,6 @@ function* registerPhotos(action) {
     yield axios.post(`api/user/photos/${action.payload.id}`, {
       link: action.payload.link,
     });
-
-    //update to show step 2
-    // yield put({ type: "SET_TO_REGISTER_DETAILS" });
   } catch (error) {
     console.log("Error with user photo registration:", error);
     yield put({ type: "REGISTRATION_FAILED" });
@@ -138,6 +135,21 @@ function* registerPhotos(action) {
 
 function* setToDetailsPage(action) {
   yield put({ type: "SET_TO_REGISTER_DETAILS" });
+}
+
+function* registerAudio(action) {
+  try {
+    // passes the gender interest choice from the payload to the server
+    yield axios.post(`api/user/audio-link/${action.payload.id}`, {
+      audio: action.payload.link,
+    });
+
+    //update to show step 2
+    // yield put({ type: "SET_TO_REGISTER_DETAILS" });
+  } catch (error) {
+    console.log("Error with user photo registration:", error);
+    yield put({ type: "REGISTRATION_FAILED" });
+  }
 }
 
 function* registerDetails(action) {
@@ -163,6 +175,7 @@ function* registrationSaga() {
   yield takeLatest("REGISTER_INTEREST", registerInterest);
   yield takeLatest("REGISTER_PHOTOS", registerPhotos);
   yield takeLatest("REGISTER_DETAILS", registerDetails);
+  yield takeLatest("REGISTER_AUDIO", registerAudio);
   yield takeLatest("SET_MODE", setToDetailsPage);
 }
 

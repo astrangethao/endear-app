@@ -47,6 +47,7 @@ const customStyles = (theme) =>
       display: "flex",
       flexDirection: "column",
       margin: "20px",
+      alignItems: "center",
     },
   });
 
@@ -66,6 +67,8 @@ class AudioRecordingPage extends Component {
   }
 
   handleFinishedUpload = (info) => {
+    console.log("INFO", info);
+
     this.props.dispatch({
       type: "REGISTER_AUDIO",
       payload: {
@@ -122,6 +125,7 @@ class AudioRecordingPage extends Component {
             <Button className={classes.btn}>Back</Button>
             <h3 className={classes.font}>About You</h3>
             <h2 className={classes.font}>Record Yourself!</h2>
+
             <div className={classes.audio}>
               <Button
                 className={classes.btn}

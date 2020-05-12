@@ -10,7 +10,11 @@ import {
   Paper,
   withStyles,
   createStyles,
+  IconButton,
 } from "@material-ui/core";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import NotInterestedIcon from "@material-ui/icons/NotInterested";
+import Carousel from "react-material-ui-carousel";
 import "typeface-quicksand";
 
 const customStyles = (theme) =>
@@ -65,27 +69,33 @@ class MatchPage extends Component {
     return (
       <div>
         <Nav />
-        <div className={classes.root}>
-          <center>
-            {filteredMatches.map((item, index) => {
-              return (
-                <Card key={index}>
-                  <CardHeader
-                    title={item.first_name}
-                    subheader={item.gender_id === 1 ? "Woman" : "Man"}
-                  />{" "}
-                  <CardContent>
-                    <img
-                      src={item.link}
-                      alt="match profile"
-                      style={{ maxWidth: "400px", maxHeight: "200px" }}
-                    />
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </center>
-        </div>
+
+        <Carousel autoPlay={false}>
+          {filteredMatches.map((item, index) => {
+            return (
+              <Card key={index}>
+                <CardHeader
+                  title={item.first_name}
+                  subheader={item.gender_id === 1 ? "Woman" : "Man"}
+                />
+                <CardContent>
+                  <img
+                    src={item.link}
+                    alt="match profile"
+                    style={{ maxWidth: "400px", maxHeight: "200px" }}
+                  />
+                </CardContent>
+                <IconButton>
+                  <NotInterestedIcon />
+                </IconButton>
+                <IconButton>
+                  <FavoriteIcon />
+                </IconButton>
+              </Card>
+            );
+          })}
+        </Carousel>
+
         <Footer />
       </div>
     );

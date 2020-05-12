@@ -104,12 +104,27 @@ router.post("/interest/:id", (req, res, next) => {
 router.post("/photos/:id", (req, res, next) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log("INTEREST POST:", userId, newUser);
 
   const queryText =
     'INSERT INTO "user_photo" (user_account_id, link) VALUES ($1, $2) RETURNING id';
   pool
     .query(queryText, [userId, newUser.link])
+    .then((response) => {
+      res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.post("/audio-link/:id", (req, res, next) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log("AUDIO POST:", userId, newUser);
+
+  const queryText =
+    'INSERT INTO "audio_clip" (audio, user_account_id) VALUES ($1, $2) RETURNING id';
+  pool
+    .query(queryText, [newUser.audio, userId])
     .then((response) => {
       res.send(response.rows[0]);
       res.sendStatus(201);
