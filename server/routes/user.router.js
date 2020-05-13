@@ -226,4 +226,19 @@ router.put("/details/:id", (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+  console.log("NEW USER PROFILE UPDATE", newUser);
+
+  const queryText = `UPDATE "user_account" SET "details"= $1, "phone_number"=$2 WHERE "id" = $3;`;
+
+  pool
+    .query(queryText, [newUser.details, newUser.phone_number, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
+});
 module.exports = router;

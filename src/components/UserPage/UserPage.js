@@ -115,6 +115,10 @@ class UserPage extends Component {
     }
 
     if (type === "save") {
+      this.props.dispatch({
+        type: "UPDATE_PROFILE",
+        payload: this.state.updatedProfile,
+      });
       this.setState({
         edit: false,
       });
@@ -124,6 +128,7 @@ class UserPage extends Component {
   render() {
     const { classes } = this.props;
     const detail = this.props.store.userDetails || [];
+    console.log("UPDATED PROFILE:", this.state.updatedProfile);
 
     const userDetail = (
       <div>

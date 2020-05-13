@@ -47,9 +47,24 @@ function* fetchUserDetails() {
   }
 }
 
+function* updateProfile(action) {
+  try {
+    yield axios.put(`/api/user/${action.payload.id}`, {
+      details: action.payload.details,
+      phone_number: action.payload.phone_number,
+    });
+
+    yield put({ type: "FETCH_USER" });
+    yield put({ type: "FETCH_USER_DETAILS" });
+  } catch (error) {
+    console.warn(`Error with update profile`, error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("FETCH_USER_DETAILS", fetchUserDetails);
+  yield takeLatest("UPDATE_PROFILE", updateProfile);
 }
 
 export default userSaga;
