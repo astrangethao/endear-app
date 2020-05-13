@@ -1,10 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import LogOutButton from "../LogOutButton/LogOutButton";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
-import { Container, Paper, withStyles, createStyles } from "@material-ui/core";
+import {
+  Container,
+  Paper,
+  withStyles,
+  createStyles,
+  TextField,
+  Input,
+} from "@material-ui/core";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
+import CakeIcon from "@material-ui/icons/Cake";
+import PhoneIcon from "@material-ui/icons/Phone";
+import WcIcon from "@material-ui/icons/Wc";
 import "typeface-quicksand";
 
 const customStyles = (theme) =>
@@ -15,21 +25,30 @@ const customStyles = (theme) =>
     paper_class: {
       maxWidth: "90%",
       height: "100vh",
-      backgroundColor: "#dfe4ea",
+      backgroundColor: "#cf6a87",
       padding: "3%",
       margin: "3%",
+      color: "white",
     },
-    btn: {
-      backgroundColor: "#cf6a87",
-      color: "#fff",
-      margin: "5%",
-      fontFamily: "Quicksand",
-      "&:hover": {
-        background: "#e66767",
-      },
-    },
+
     font: {
       fontFamily: "Quicksand",
+      color: "white",
+    },
+    textField: {
+      fontFamily: "Quicksand",
+      color: "white",
+      width: "400px",
+    },
+    container: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "left",
+    },
+    info: {
+      marginTop: "0",
+      marginLeft: "40px",
+      textAlign: "left",
     },
   });
 
@@ -37,11 +56,42 @@ const customStyles = (theme) =>
 // const UserPage = ({ user }) => (
 // and then instead of `props.user.username` you could use `user.username`
 class UserPage extends Component {
+  state = {
+    updatedProfile: {
+      id: "",
+      details: "",
+      phone_number: "",
+    },
+  };
+
   componentDidMount() {
     this.props.dispatch({
       type: "FETCH_USER_DETAILS",
     });
   }
+
+  handleChange = (type) => (event) => {
+    if (type === "details") {
+      this.setState({
+        updatedProfile: {
+          ...this.state.updatedProfile,
+          id: this.props.store.user.id,
+          details: event.target.value,
+        },
+      });
+    }
+
+    if (type === "phone_number") {
+      this.setState({
+        updatedProfile: {
+          ...this.state.updatedProfile,
+          id: this.props.store.user.id,
+          phone_number: Number(event.target.value),
+        },
+      });
+    }
+  };
+
   render() {
     const { classes } = this.props;
     const detail = this.props.store.userDetails || [];
@@ -50,42 +100,62 @@ class UserPage extends Component {
     return (
       <div>
         <Nav />
-        <center>
-          <Paper className={classes.paper_class}>
-            <Container>
-              <div className={classes.font}>
-                {detail.map((item, index) => {
-                  return (
-                    <div key={index}>
-                      <img
-                        src={item.user_photo}
-                        alt="profile"
-                        style={{ maxWidth: "400px", maxHeight: "200px" }}
+
+        <Paper className={classes.paper_class}>
+          <div className={classes.font}>
+            {detail.map((item, index) => {
+              return (
+                <div key={index} className={classes.container}>
+                  <img
+                    src={item.user_photo}
+                    alt="profile"
+                    style={{
+                      maxWidth: "400px",
+                      maxHeight: "200px",
+                      border: "3px solid black",
+                    }}
+                  />
+                  <div className={classes.info}>
+                    <h2>
+                      {this.props.store.user.first_name}{" "}
+                      {this.props.store.user.last_name}
+                    </h2>
+                    <p>
+                      <LocationCityIcon /> {item.city}, {item.zip_code}
+                    </p>
+
+                    <p>
+                      <CakeIcon /> {this.props.store.user.dob}
+                    </p>
+                    <p>
+                      <WcIcon /> {item.gender}
+                    </p>
+                  </div>
+                  <div className={classes.info}>
+                    <p>Details:</p>
+                    <TextField
+                      className={classes.textField}
+                      multiline
+                      rows={5}
+                      defaultValue={this.props.store.user.details}
+                      variant="outlined"
+                      onChange={this.handleChange("details")}
+                    />
+                    <div>
+                      <PhoneIcon />
+                      <Input
+                        label="phone number"
+                        defaultValue={this.props.store.user.phone_number}
+                        onChange={this.handleChange("phone_number")}
                       />
-                      <p>
-                        {this.props.store.user.first_name}{" "}
-                        {this.props.store.user.last_name}
-                      </p>
-                      <p>Location: {item.city}</p>
-                      <p>Zip Code: {item.zip_code}</p>
-
-                      <p>Gender: {item.gender}</p>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Paper>
 
-              <p className={classes.font}>
-                Details: {this.props.store.user.details}
-              </p>
-              <p className={classes.font}>
-                Phone Number: {this.props.store.user.phone_number}
-              </p>
-
-              <LogOutButton className="log-in" />
-            </Container>
-          </Paper>
-        </center>
         <Footer />
       </div>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-// import LogOutButton from "../LogOutButton/LogOutButton";
+import LogOutButton from "../LogOutButton/LogOutButton";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import {
   AppBar,
@@ -42,6 +42,14 @@ const customStyles = (theme) =>
     nav_item: {
       display: "flex",
       flexDirection: "row",
+    },
+    btn: {
+      backgroundColor: "#c44569",
+      border: "none",
+      color: "#f2f2f2",
+      cursor: "pointer",
+      fontSize: "15px",
+      fontFamily: "Quicksand",
     },
   });
 
@@ -104,6 +112,10 @@ class Nav extends Component {
                   {this.state.loginLinkData.text}
                 </Link>
               </Typography>
+
+              {this.props.store.user.id && (
+                <LogOutButton className={classes.btn} />
+              )}
             </div>
           </Toolbar>
         </AppBar>
