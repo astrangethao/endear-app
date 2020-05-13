@@ -24,7 +24,6 @@ const customStyles = (theme) =>
     },
     paper_class: {
       maxWidth: "90%",
-
       backgroundColor: "#fff",
       padding: "3%",
       margin: "3%",
@@ -39,7 +38,7 @@ const customStyles = (theme) =>
       },
     },
     card: {
-      backgroundColor: "#e66767",
+      backgroundColor: "#786fa6",
       height: "300px",
       width: "500px",
       textAlign: "center",
@@ -61,34 +60,47 @@ const customStyles = (theme) =>
 
 class MatchPage extends Component {
   state = {
+    user_1_id: this.props.store.user.id,
     user_2_id: "",
     match_user_1: false,
     match_user_2: false,
+    bgColor: "#786fa6",
   };
 
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_USER_DETAILS" });
     this.props.dispatch({
-      type: "GET_MATCHES",
+      type: "GET_OPTIONS",
     });
   }
 
   handleMatch = (type, id) => (event) => {
     if (type === "pass") {
+      console.log("PASS");
+
       this.setState({
         ...this.state,
         user_2_id: id,
+        match_user_1: false,
+        // bgColor: "#303952",
       });
       this.props.dispatch({
-        type: "SET_MATCH",
+        type: "POST_MATCH",
+        payload: this.state,
       });
     }
 
     if (type === "like") {
+      console.log("LIKE");
       this.setState({
         ...this.state,
         user_2_id: id,
         match_user_1: true,
+        // bgColor: "#f78fb3",
+      });
+      this.props.dispatch({
+        type: "POST_MATCH",
+        payload: this.state,
       });
     }
   };
@@ -96,13 +108,13 @@ class MatchPage extends Component {
   render() {
     const { classes } = this.props;
     const detail = this.props.store.userDetails[0] || [];
-    const matches = this.props.store.matches || [];
+    const options = this.props.store.options || [];
 
-    const filteredMatches = matches.filter((match) => {
-      return match.gender_id === detail.gender_preference;
+    const filteredOptions = options.filter((option) => {
+      return option.gender_id === detail.gender_preference;
     });
 
-    console.log("FILTERED MATCHES:", filteredMatches);
+    console.log("FILTERED OPTIONS:", filteredOptions);
     console.log("STATE:", this.state);
 
     return (
@@ -110,9 +122,13 @@ class MatchPage extends Component {
         <Nav />
         <div className={classes.container}>
           <Carousel className={classes.carousel} autoPlay={false}>
-            {filteredMatches.map((item, index) => {
+            {filteredOptions.map((item, index) => {
               return (
-                <Card key={index} className={classes.card}>
+                <Card
+                  key={index}
+                  className={classes.card}
+                  style={{ background: this.state.bgColor }}
+                >
                   <CardHeader
                     className={classes.font}
                     title={item.first_name}

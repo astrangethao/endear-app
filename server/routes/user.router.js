@@ -37,7 +37,7 @@ router.get("/info", rejectUnauthenticated, (req, res) => {
     .catch(() => res.sendStatus(500));
 });
 
-router.get("/match", rejectUnauthenticated, (req, res) => {
+router.get("/options", rejectUnauthenticated, (req, res) => {
   // const genderId = req.userDetails.gender_preference;
   queryText = `SELECT "user_account".id as "user_id", "user_account".first_name, "user_account".last_name, "user_account".details, "user_account".gender_id, "user_account".dob, "user_account".phone_number, "user_photo".link, "audio_clip".audio,"location".city, "location".zipcode FROM "user_account"
   JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id

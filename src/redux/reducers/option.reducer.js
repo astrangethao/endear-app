@@ -1,8 +1,8 @@
-const matchesReducer = (state = [], action) => {
+const optionsReducer = (state = [], action) => {
   switch (action.type) {
-    case "SET_MATCHES":
+    case "SET_OPTIONS":
       return action.payload;
-    case "UNSET_MATCHES":
+    case "UNSET_OPTIONS":
       return {};
     default:
       return state;
@@ -11,4 +11,4 @@ const matchesReducer = (state = [], action) => {
 
 // user will be on the redux state at:
 // state.user
-export default matchesReducer;
+export default optionsReducer;
