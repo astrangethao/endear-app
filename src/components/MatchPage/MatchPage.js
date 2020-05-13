@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Paper,
   withStyles,
   createStyles,
   IconButton,

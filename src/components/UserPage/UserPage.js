@@ -4,7 +4,7 @@ import mapStoreToProps from "../../redux/mapStoreToProps";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import {
-  Container,
+  Button,
   Paper,
   withStyles,
   createStyles,
@@ -24,7 +24,7 @@ const customStyles = (theme) =>
     },
     paper_class: {
       maxWidth: "90%",
-      height: "100vh",
+      height: "60vh",
       backgroundColor: "#cf6a87",
       padding: "3%",
       margin: "3%",
@@ -45,10 +45,24 @@ const customStyles = (theme) =>
       flexDirection: "row",
       justifyContent: "left",
     },
-    info: {
+    item: {
       marginTop: "0",
       marginLeft: "40px",
       textAlign: "left",
+    },
+    btn: {
+      backgroundColor: "#c44569",
+      color: "#fff",
+      margin: "3%",
+      fontFamily: "Quicksand",
+      "&:hover": {
+        background: "whites",
+      },
+    },
+    edit: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "flex-end",
     },
   });
 
@@ -57,6 +71,7 @@ const customStyles = (theme) =>
 // and then instead of `props.user.username` you could use `user.username`
 class UserPage extends Component {
   state = {
+    edit: false,
     updatedProfile: {
       id: "",
       details: "",
@@ -92,10 +107,69 @@ class UserPage extends Component {
     }
   };
 
+  handleEdit = (type) => (event) => {
+    if (type === "edit") {
+      this.setState({
+        edit: true,
+      });
+    }
+
+    if (type === "save") {
+      this.setState({
+        edit: false,
+      });
+    }
+  };
+
   render() {
     const { classes } = this.props;
     const detail = this.props.store.userDetails || [];
-    console.log("DETAIL:", detail);
+
+    const userDetail = (
+      <div>
+        <div>
+          <p>Details: </p>
+          <p className={classes.textField}>{this.props.store.user.details}</p>
+        </div>
+        <div>
+          <p>
+            <PhoneIcon /> {this.props.store.user.phone_number}
+          </p>
+        </div>
+        <div className={classes.edit}>
+          <Button className={classes.btn} onClick={this.handleEdit("edit")}>
+            Edit
+          </Button>
+        </div>
+      </div>
+    );
+
+    const editDetail = (
+      <div>
+        <p>Details:</p>
+        <TextField
+          className={classes.textField}
+          multiline
+          rows={3}
+          defaultValue={this.props.store.user.details}
+          variant="outlined"
+          onChange={this.handleChange("details")}
+        />
+        <div>
+          <PhoneIcon />
+          <Input
+            label="phone number"
+            defaultValue={this.props.store.user.phone_number}
+            onChange={this.handleChange("phone_number")}
+          />
+        </div>
+        <div className={classes.edit}>
+          <Button className={classes.btn} onClick={this.handleEdit("save")}>
+            Save
+          </Button>
+        </div>
+      </div>
+    );
 
     return (
       <div>
@@ -106,16 +180,18 @@ class UserPage extends Component {
             {detail.map((item, index) => {
               return (
                 <div key={index} className={classes.container}>
-                  <img
-                    src={item.user_photo}
-                    alt="profile"
-                    style={{
-                      maxWidth: "400px",
-                      maxHeight: "200px",
-                      border: "3px solid black",
-                    }}
-                  />
-                  <div className={classes.info}>
+                  <div className={classes.item}>
+                    <img
+                      src={item.user_photo}
+                      alt="profile"
+                      style={{
+                        maxWidth: "400px",
+                        maxHeight: "200px",
+                        border: "3px solid black",
+                      }}
+                    />
+                  </div>
+                  <div className={classes.item}>
                     <h2>
                       {this.props.store.user.first_name}{" "}
                       {this.props.store.user.last_name}
@@ -131,24 +207,12 @@ class UserPage extends Component {
                       <WcIcon /> {item.gender}
                     </p>
                   </div>
-                  <div className={classes.info}>
-                    <p>Details:</p>
-                    <TextField
-                      className={classes.textField}
-                      multiline
-                      rows={5}
-                      defaultValue={this.props.store.user.details}
-                      variant="outlined"
-                      onChange={this.handleChange("details")}
-                    />
-                    <div>
-                      <PhoneIcon />
-                      <Input
-                        label="phone number"
-                        defaultValue={this.props.store.user.phone_number}
-                        onChange={this.handleChange("phone_number")}
-                      />
-                    </div>
+                  <div className={classes.item}>
+                    {!this.state.edit ? (
+                      <div>{userDetail}</div>
+                    ) : (
+                      <div>{editDetail}</div>
+                    )}
                   </div>
                 </div>
               );
