@@ -15,6 +15,7 @@ import {
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import Carousel from "react-material-ui-carousel";
+import ReactAudioPlayer from "react-audio-player";
 import "typeface-quicksand";
 
 const customStyles = (theme) =>
@@ -38,8 +39,24 @@ const customStyles = (theme) =>
         background: "#e66767",
       },
     },
+    card: {
+      backgroundColor: "#e66767",
+      height: "300px",
+      width: "500px",
+      textAlign: "center",
+      margin: "30px",
+    },
+    carousel: {
+      margin: "100px",
+    },
+    container: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
     font: {
       fontFamily: "Quicksand",
+      color: "white",
     },
   });
 
@@ -69,33 +86,34 @@ class MatchPage extends Component {
     return (
       <div>
         <Nav />
-
-        <Carousel autoPlay={false}>
-          {filteredMatches.map((item, index) => {
-            return (
-              <Card key={index}>
-                <CardHeader
-                  title={item.first_name}
-                  subheader={item.gender_id === 1 ? "Woman" : "Man"}
-                />
-                <CardContent>
-                  <img
-                    src={item.link}
-                    alt="match profile"
-                    style={{ maxWidth: "400px", maxHeight: "200px" }}
+        <div className={classes.container}>
+          <Carousel className={classes.carousel} autoPlay={false}>
+            {filteredMatches.map((item, index) => {
+              return (
+                <Card key={index} className={classes.card}>
+                  <CardHeader
+                    className={classes.font}
+                    title={item.first_name}
+                    subheader={item.city}
                   />
-                </CardContent>
-                <IconButton>
-                  <NotInterestedIcon />
-                </IconButton>
-                <IconButton>
-                  <FavoriteIcon />
-                </IconButton>
-              </Card>
-            );
-          })}
-        </Carousel>
-
+                  <CardContent>
+                    <ReactAudioPlayer
+                      src={item.audio}
+                      autoPlay={false}
+                      controls
+                    />
+                  </CardContent>
+                  <IconButton className={classes.font}>
+                    <NotInterestedIcon />
+                  </IconButton>
+                  <IconButton className={classes.font}>
+                    <FavoriteIcon />
+                  </IconButton>
+                </Card>
+              );
+            })}
+          </Carousel>
+        </div>
         <Footer />
       </div>
     );
