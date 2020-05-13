@@ -26,7 +26,8 @@ const customStyles = (theme) =>
     paper_class: {
       maxWidth: "90%",
       height: "75vh",
-      backgroundColor: "#dfe4ea",
+      backgroundColor: "#786fa6",
+      color: "white",
       padding: "3%",
       margin: "3%",
     },

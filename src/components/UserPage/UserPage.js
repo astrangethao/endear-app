@@ -25,7 +25,7 @@ const customStyles = (theme) =>
     paper_class: {
       maxWidth: "90%",
       height: "60vh",
-      backgroundColor: "#cf6a87",
+      backgroundColor: "#786fa6",
       padding: "3%",
       margin: "3%",
       color: "white",
@@ -49,14 +49,17 @@ const customStyles = (theme) =>
       marginTop: "0",
       marginLeft: "40px",
       textAlign: "left",
+      flexGrow: "1",
+      flexShrink: "1",
     },
     btn: {
-      backgroundColor: "#c44569",
+      backgroundColor: "#cf6a87",
       color: "#fff",
       margin: "3%",
+      width: "100px",
       fontFamily: "Quicksand",
       "&:hover": {
-        background: "whites",
+        background: "#c44569",
       },
     },
     edit: {

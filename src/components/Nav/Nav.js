@@ -22,13 +22,15 @@ const customStyles = (theme) =>
     title: {
       fontFamily: "Pacifico",
       flexGrow: 1,
-      fontSize: "30px",
+      fontSize: "45px",
       fontWeight: "700",
       display: "inline-block",
     },
     nav: {
       background: "#c44569",
       overflow: "hidden",
+      height: "100px",
+      justifyContent: "center",
     },
     nav_link: {
       fontFamily: "Quicksand",
@@ -37,7 +39,7 @@ const customStyles = (theme) =>
       textAlign: "center",
       padding: "24px 10px",
       textDecoration: "none",
-      fontSize: "15px",
+      fontSize: "18px",
     },
     nav_item: {
       display: "flex",
@@ -48,7 +50,7 @@ const customStyles = (theme) =>
       border: "none",
       color: "#f2f2f2",
       cursor: "pointer",
-      fontSize: "15px",
+      fontSize: "17px",
       fontFamily: "Quicksand",
     },
   });
