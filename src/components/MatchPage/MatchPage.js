@@ -61,7 +61,9 @@ const customStyles = (theme) =>
 
 class MatchPage extends Component {
   state = {
-    gender_preference: "",
+    user_2_id: "",
+    match_user_1: false,
+    match_user_2: false,
   };
 
   componentDidMount() {
@@ -70,6 +72,26 @@ class MatchPage extends Component {
       type: "GET_MATCHES",
     });
   }
+
+  handleMatch = (type, id) => (event) => {
+    if (type === "pass") {
+      this.setState({
+        ...this.state,
+        user_2_id: id,
+      });
+      this.props.dispatch({
+        type: "SET_MATCH",
+      });
+    }
+
+    if (type === "like") {
+      this.setState({
+        ...this.state,
+        user_2_id: id,
+        match_user_1: true,
+      });
+    }
+  };
 
   render() {
     const { classes } = this.props;
@@ -80,7 +102,8 @@ class MatchPage extends Component {
       return match.gender_id === detail.gender_preference;
     });
 
-    console.log("TEST LOG:", filteredMatches);
+    console.log("FILTERED MATCHES:", filteredMatches);
+    console.log("STATE:", this.state);
 
     return (
       <div>
@@ -102,10 +125,16 @@ class MatchPage extends Component {
                       controls
                     />
                   </CardContent>
-                  <IconButton className={classes.font}>
+                  <IconButton
+                    className={classes.font}
+                    onClick={this.handleMatch("pass", item.user_id)}
+                  >
                     <NotInterestedIcon />
                   </IconButton>
-                  <IconButton className={classes.font}>
+                  <IconButton
+                    className={classes.font}
+                    onClick={this.handleMatch("like", item.user_id)}
+                  >
                     <FavoriteIcon />
                   </IconButton>
                 </Card>

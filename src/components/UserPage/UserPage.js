@@ -76,7 +76,6 @@ class UserPage extends Component {
   state = {
     edit: false,
     updatedProfile: {
-      id: "",
       details: "",
       phone_number: "",
     },
@@ -93,7 +92,6 @@ class UserPage extends Component {
       this.setState({
         updatedProfile: {
           ...this.state.updatedProfile,
-          id: this.props.store.user.id,
           details: event.target.value,
         },
       });
@@ -103,7 +101,6 @@ class UserPage extends Component {
       this.setState({
         updatedProfile: {
           ...this.state.updatedProfile,
-          id: this.props.store.user.id,
           phone_number: Number(event.target.value),
         },
       });
@@ -118,9 +115,29 @@ class UserPage extends Component {
     }
 
     if (type === "save") {
+      let newDetails = {
+        ...this.state,
+        id: this.props.store.user.id,
+      };
+
+      if (
+        newDetails.updatedProfile.details == null ||
+        newDetails.updatedProfile.details === ""
+      ) {
+        newDetails.updatedProfile.details = this.props.store.user.details;
+      }
+
+      if (
+        newDetails.updatedProfile.phone_number == null ||
+        newDetails.updatedProfile.phone_number === ""
+      ) {
+        newDetails.updatedProfile.phone_number = this.props.store.user.phone_number;
+      }
+      console.log("NEW DETAILS:", newDetails);
+
       this.props.dispatch({
         type: "UPDATE_PROFILE",
-        payload: this.state.updatedProfile,
+        payload: newDetails,
       });
       this.setState({
         edit: false,
@@ -131,7 +148,6 @@ class UserPage extends Component {
   render() {
     const { classes } = this.props;
     const detail = this.props.store.userDetails || [];
-    console.log("UPDATED PROFILE:", this.state.updatedProfile);
 
     const userDetail = (
       <div>

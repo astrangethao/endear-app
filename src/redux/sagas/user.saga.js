@@ -50,8 +50,8 @@ function* fetchUserDetails() {
 function* updateProfile(action) {
   try {
     yield axios.put(`/api/user/${action.payload.id}`, {
-      details: action.payload.details,
-      phone_number: action.payload.phone_number,
+      details: action.payload.updatedProfile.details,
+      phone_number: action.payload.updatedProfile.phone_number,
     });
 
     yield put({ type: "FETCH_USER" });
