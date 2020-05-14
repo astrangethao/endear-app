@@ -144,8 +144,7 @@ function* registerAudio(action) {
       audio: action.payload.link,
     });
 
-    //update to show step 2
-    // yield put({ type: "SET_TO_REGISTER_DETAILS" });
+    yield put({ type: "LOGIN", payload: action.payload });
   } catch (error) {
     console.log("Error with user photo registration:", error);
     yield put({ type: "REGISTRATION_FAILED" });

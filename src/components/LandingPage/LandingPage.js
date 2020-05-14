@@ -33,6 +33,8 @@ const customStyles = (theme) =>
       backgroundColor: "#e66767",
       color: "#fff",
       margin: "5%",
+      padding: "20px",
+      fontSize: "15px",
       fontFamily: "Quicksand",
       "&:hover": {
         background: "#cf6a87",

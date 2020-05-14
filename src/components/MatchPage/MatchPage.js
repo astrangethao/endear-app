@@ -76,8 +76,6 @@ class MatchPage extends Component {
 
   handleMatch = (type, id) => (event) => {
     if (type === "pass") {
-      console.log("PASS", id);
-
       this.setState(
         {
           ...this.state,
@@ -95,7 +93,6 @@ class MatchPage extends Component {
     }
 
     if (type === "like") {
-      console.log("LIKE", id);
       this.setState(
         {
           ...this.state,
@@ -121,9 +118,6 @@ class MatchPage extends Component {
     const filteredOptions = options.filter((option) => {
       return option.gender_id === detail.gender_preference;
     });
-
-    console.log("FILTERED OPTIONS:", filteredOptions);
-    console.log("STATE:", this.state);
 
     return (
       <div>
