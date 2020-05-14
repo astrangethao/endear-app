@@ -18,14 +18,12 @@ function* getOptions(action) {
 
 function* postMatches(action) {
   try {
-    yield console.log("POST SAGA", action.payload);
     yield axios.post("api/user/matches", {
       match_user_1: action.payload.match_user_1,
       match_user_2: action.payload.match_user_2,
       user_1_id: action.payload.user_1_id,
       user_2_id: action.payload.user_2_id,
     });
-    console.log("POST SAGA", action.payload);
   } catch (error) {
     console.log("Error with user matches:", error);
   }

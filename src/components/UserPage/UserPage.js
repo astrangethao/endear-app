@@ -136,7 +136,6 @@ class UserPage extends Component {
       ) {
         newDetails.updatedProfile.phone_number = this.props.store.user.phone_number;
       }
-      console.log("NEW DETAILS:", newDetails);
 
       this.props.dispatch({
         type: "UPDATE_PROFILE",

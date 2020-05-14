@@ -68,15 +68,18 @@ class AudioRecordingPage extends Component {
   }
 
   handleFinishedUpload = (info) => {
-    console.log("INFO", info);
-
-    this.props.dispatch({
-      type: "REGISTER_AUDIO",
-      payload: {
-        ...this.props.store.registered,
-        link: info.fileUrl,
-      },
-    });
+    if (
+      this.props.store.registered.username &&
+      this.props.store.registered.password
+    ) {
+      this.props.dispatch({
+        type: "REGISTER_AUDIO",
+        payload: {
+          ...this.props.store.registered,
+          link: info.fileUrl,
+        },
+      });
+    }
   };
 
   handlerFunction(stream) {
@@ -91,13 +94,11 @@ class AudioRecordingPage extends Component {
         this.setState({
           audioSrc: URL.createObjectURL(blob),
         });
-        console.log("AUDIO SRC:", this.state.audioSrc);
       }
     };
   }
 
   record = (e) => {
-    console.log("I was clicked");
     this.setState({
       isRecording: true,
       audioChunks: [],
@@ -106,7 +107,6 @@ class AudioRecordingPage extends Component {
   };
 
   stopRecord = (e) => {
-    console.log("I was clicked");
     this.setState({
       isRecording: false,
     });
@@ -173,7 +173,7 @@ class AudioRecordingPage extends Component {
           </Container>
 
           <Container>
-            <h3>Instructions:</h3>
+            <h3>How to use:</h3>
             <p>
               Step 1. Click on the record button and start your introduction.
             </p>
@@ -187,7 +187,7 @@ class AudioRecordingPage extends Component {
               into the pink square uploader.
             </p>
             <p>
-              Step 5. Once the file is in the uploader login by clicking the
+              Step 5. Once the file is in the uploader, login by clicking the
               login button!
             </p>
           </Container>

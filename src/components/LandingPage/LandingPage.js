@@ -23,14 +23,14 @@ const customStyles = (theme) =>
     },
     body: {
       padding: "5px",
-      marginBottom: "3%",
+      marginBottom: "6%",
     },
     image: {
       maxWidth: "90%",
       padding: "5%",
     },
     btn: {
-      backgroundColor: "#e66767",
+      backgroundColor: "#786fa6",
       color: "#fff",
       margin: "5%",
       padding: "20px",

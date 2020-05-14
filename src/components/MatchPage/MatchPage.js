@@ -40,12 +40,12 @@ const customStyles = (theme) =>
     card: {
       backgroundColor: "#786fa6",
       height: "300px",
-      width: "500px",
+      width: "600px",
       textAlign: "center",
       margin: "30px",
     },
     carousel: {
-      margin: "100px",
+      margin: "10%",
     },
     container: {
       display: "flex",
@@ -55,6 +55,10 @@ const customStyles = (theme) =>
     font: {
       fontFamily: "Quicksand",
       color: "white",
+    },
+    icon_btn: {
+      color: "white",
+      margin: "10px",
     },
   });
 
@@ -81,7 +85,7 @@ class MatchPage extends Component {
           ...this.state,
           user_2_id: id,
           match_user_1: false,
-          // bgColor: "#303952",
+          bgColor: "#303952",
         },
         () => {
           this.props.dispatch({
@@ -98,7 +102,7 @@ class MatchPage extends Component {
           ...this.state,
           user_2_id: id,
           match_user_1: true,
-          // bgColor: "#f78fb3",
+          bgColor: "#f78fb3",
         },
         () => {
           this.props.dispatch({
@@ -144,13 +148,13 @@ class MatchPage extends Component {
                     />
                   </CardContent>
                   <IconButton
-                    className={classes.font}
+                    className={classes.icon_btn}
                     onClick={this.handleMatch("pass", item.user_id)}
                   >
                     <NotInterestedIcon />
                   </IconButton>
                   <IconButton
-                    className={classes.font}
+                    className={classes.icon_btn}
                     onClick={this.handleMatch("like", item.user_id)}
                   >
                     <FavoriteIcon />

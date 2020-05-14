@@ -125,8 +125,7 @@ router.post("/audio-link/:id", (req, res, next) => {
     'INSERT INTO "audio_clip" (audio, user_account_id) VALUES ($1, $2) RETURNING id';
   pool
     .query(queryText, [newUser.audio, userId])
-    .then((response) => {
-      res.send(response.rows[0]);
+    .then(() => {
       res.sendStatus(201);
     })
     .catch(() => res.sendStatus(500));
@@ -134,7 +133,6 @@ router.post("/audio-link/:id", (req, res, next) => {
 
 router.post("/matches", (req, res, next) => {
   const match = req.body;
-  console.log("MATCH POST:", match);
 
   const queryText =
     'INSERT INTO "matches" (user_1_id, match_user_1, user_2_id, match_user_2) VALUES ($1, $2, $3, $4) RETURNING id';
@@ -214,7 +212,6 @@ router.put("/dob/:id", (req, res) => {
 router.put("/phone/:id", (req, res) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log(newUser.phone_number);
 
   const queryText = `UPDATE "user_account" SET "phone_number"= $1 WHERE "id" = $2;`;
 
@@ -230,7 +227,6 @@ router.put("/phone/:id", (req, res) => {
 router.put("/details/:id", (req, res) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log(newUser.details);
 
   const queryText = `UPDATE "user_account" SET "details"= $1 WHERE "id" = $2;`;
 
@@ -246,7 +242,6 @@ router.put("/details/:id", (req, res) => {
 router.put("/:id", (req, res) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log("NEW USER PROFILE UPDATE", newUser);
 
   const queryText = `UPDATE "user_account" SET "details"= $1, "phone_number"=$2 WHERE "id" = $3;`;
 
