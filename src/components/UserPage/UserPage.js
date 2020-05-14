@@ -67,6 +67,9 @@ const customStyles = (theme) =>
       flexDirection: "row",
       justifyContent: "flex-end",
     },
+    margin: {
+      marginTop: "22px",
+    },
   });
 
 // this could also be written with destructuring parameters as:
@@ -179,7 +182,8 @@ class UserPage extends Component {
           variant="outlined"
           onChange={this.handleChange("details")}
         />
-        <div>
+
+        <div className={classes.margin}>
           <PhoneIcon />
           <Input
             label="phone number"

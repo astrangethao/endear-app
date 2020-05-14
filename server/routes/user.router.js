@@ -48,7 +48,6 @@ router.get("/options", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText)
     .then((response) => {
-      console.log("RESPONSE:", response.rows);
       res.send(response.rows);
     })
     .catch(() => res.sendStatus(500));
@@ -121,7 +120,6 @@ router.post("/photos/:id", (req, res, next) => {
 router.post("/audio-link/:id", (req, res, next) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log("AUDIO POST:", userId, newUser);
 
   const queryText =
     'INSERT INTO "audio_clip" (audio, user_account_id) VALUES ($1, $2) RETURNING id';
@@ -129,6 +127,25 @@ router.post("/audio-link/:id", (req, res, next) => {
     .query(queryText, [newUser.audio, userId])
     .then((response) => {
       res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.post("/matches", (req, res, next) => {
+  const match = req.body;
+  console.log("MATCH POST:", match);
+
+  const queryText =
+    'INSERT INTO "matches" (user_1_id, match_user_1, user_2_id, match_user_2) VALUES ($1, $2, $3, $4) RETURNING id';
+  pool
+    .query(queryText, [
+      match.user_1_id,
+      match.match_user_1,
+      match.user_2_id,
+      match.match_user_2,
+    ])
+    .then((response) => {
       res.sendStatus(201);
     })
     .catch(() => res.sendStatus(500));

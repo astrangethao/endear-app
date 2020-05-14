@@ -76,32 +76,40 @@ class MatchPage extends Component {
 
   handleMatch = (type, id) => (event) => {
     if (type === "pass") {
-      console.log("PASS");
+      console.log("PASS", id);
 
-      this.setState({
-        ...this.state,
-        user_2_id: id,
-        match_user_1: false,
-        // bgColor: "#303952",
-      });
-      this.props.dispatch({
-        type: "POST_MATCH",
-        payload: this.state,
-      });
+      this.setState(
+        {
+          ...this.state,
+          user_2_id: id,
+          match_user_1: false,
+          // bgColor: "#303952",
+        },
+        () => {
+          this.props.dispatch({
+            type: "POST_MATCHES",
+            payload: this.state,
+          });
+        }
+      );
     }
 
     if (type === "like") {
-      console.log("LIKE");
-      this.setState({
-        ...this.state,
-        user_2_id: id,
-        match_user_1: true,
-        // bgColor: "#f78fb3",
-      });
-      this.props.dispatch({
-        type: "POST_MATCH",
-        payload: this.state,
-      });
+      console.log("LIKE", id);
+      this.setState(
+        {
+          ...this.state,
+          user_2_id: id,
+          match_user_1: true,
+          // bgColor: "#f78fb3",
+        },
+        () => {
+          this.props.dispatch({
+            type: "POST_MATCHES",
+            payload: this.state,
+          });
+        }
+      );
     }
   };
 
