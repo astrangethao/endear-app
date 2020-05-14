@@ -25,7 +25,7 @@ const customStyles = (theme) =>
     },
     paper_class: {
       maxWidth: "90%",
-      height: "100vh",
+      height: "120vh",
       backgroundColor: "#786fa6",
       color: "white",
       padding: "3%",
@@ -162,7 +162,7 @@ class AudioRecordingPage extends Component {
             <center>
               <Button
                 type="button"
-                className={classes.font}
+                className={classes.btn}
                 onClick={() => {
                   this.props.dispatch({ type: "SET_TO_LOGIN_MODE" });
                 }}
@@ -170,6 +170,26 @@ class AudioRecordingPage extends Component {
                 Login
               </Button>
             </center>
+          </Container>
+
+          <Container>
+            <h3>Instructions:</h3>
+            <p>
+              Step 1. Click on the record button and start your introduction.
+            </p>
+            <p>Step 2. Stop the recording and an audio player will appear.</p>
+            <p>
+              Step 3. Play back your recording, if you like it click on the
+              three dots to download a wav file.
+            </p>
+            <p>
+              Step 4. Once the wav file is done downloading drag and drop file
+              into the pink square uploader.
+            </p>
+            <p>
+              Step 5. Once the file is in the uploader login by clicking the
+              login button!
+            </p>
           </Container>
         </Paper>
       </center>
