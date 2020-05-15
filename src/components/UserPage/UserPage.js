@@ -43,7 +43,6 @@ const customStyles = (theme) =>
     container: {
       display: "flex",
       flexDirection: "row",
-      justifyContent: "left",
     },
     item: {
       marginTop: "0",
@@ -69,9 +68,6 @@ const customStyles = (theme) =>
     },
     margin: {
       marginTop: "22px",
-    },
-    img: {
-      alignContent: "flex-end",
     },
   });
 

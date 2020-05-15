@@ -127,7 +127,11 @@ class MatchPage extends Component {
       <div>
         <Nav />
         <div className={classes.container}>
-          <Carousel className={classes.carousel} autoPlay={false}>
+          <Carousel
+            className={classes.carousel}
+            autoPlay={false}
+            navButtonsAlwaysVisible={true}
+          >
             {filteredOptions.map((item, index) => {
               return (
                 <Card
