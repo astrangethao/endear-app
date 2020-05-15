@@ -12,7 +12,9 @@ import {
 import Footer from "../Footer/Footer";
 import Nav from "../Nav/Nav";
 import Carousel from "react-material-ui-carousel";
-import coupleImage from "../Images/couple.jpg";
+import coupleImageOne from "../Images/couple_1.jpeg";
+import coupleImageTwo from "../Images/couple_2.jpeg";
+import coupleImageThree from "../Images/couple_3.jpeg";
 
 import "typeface-quicksand";
 import "typeface-pacifico";
@@ -34,6 +36,7 @@ const customStyles = (theme) =>
       backgroundColor: "#786fa6",
       color: "#fff",
       margin: "5%",
+      width: "150px",
       padding: "15px",
       fontSize: "15px",
       fontFamily: "Quicksand",
@@ -50,6 +53,13 @@ const customStyles = (theme) =>
       fontSize: "15px",
       textTransform: "lowercase",
       marginLeft: "5px",
+    },
+    img: {
+      marginTop: "21px",
+      maxHeight: "570px",
+    },
+    item: {
+      textAlign: "center",
     },
   });
 
@@ -113,7 +123,29 @@ class LandingPage extends Component {
               </div>
             </Grid>
             <Grid item xs={6}>
-              <img src={coupleImage} alt="couple" className={classes.image} />
+              <Carousel indicators={false}>
+                <div className={classes.item}>
+                  <img
+                    className={classes.img}
+                    src={coupleImageOne}
+                    alt="couple_one"
+                  />
+                </div>
+                <div className={classes.item}>
+                  <img
+                    className={classes.img}
+                    src={coupleImageTwo}
+                    alt="couple_two"
+                  />
+                </div>
+                <div className={classes.item}>
+                  <img
+                    className={classes.img}
+                    src={coupleImageThree}
+                    alt="couple_three"
+                  />
+                </div>
+              </Carousel>
             </Grid>
           </Grid>
         </Container>

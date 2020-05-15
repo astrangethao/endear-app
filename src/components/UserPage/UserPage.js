@@ -65,10 +65,13 @@ const customStyles = (theme) =>
     edit: {
       display: "flex",
       flexDirection: "row",
-      justifyContent: "flex-end",
+      justifyContent: "flex-start",
     },
     margin: {
       marginTop: "22px",
+    },
+    img: {
+      alignContent: "flex-end",
     },
   });
 
@@ -154,7 +157,7 @@ class UserPage extends Component {
     const userDetail = (
       <div>
         <div>
-          <p>Details: </p>
+          <h2>Details: </h2>
           <p className={classes.textField}>{this.props.store.user.details}</p>
         </div>
         <div>
@@ -172,7 +175,7 @@ class UserPage extends Component {
 
     const editDetail = (
       <div>
-        <p>Details:</p>
+        <h2>Details:</h2>
         <TextField
           className={classes.textField}
           multiline
@@ -207,7 +210,8 @@ class UserPage extends Component {
             {detail.map((item, index) => {
               return (
                 <div key={index} className={classes.container}>
-                  <div className={classes.item}>
+                  {/* <div className={classes.item}> */}
+                  <div>
                     <img
                       src={item.user_photo}
                       alt="profile"
@@ -218,6 +222,7 @@ class UserPage extends Component {
                       }}
                     />
                   </div>
+                  {/* </div> */}
                   <div className={classes.item}>
                     <h2>
                       {this.props.store.user.first_name}{" "}
