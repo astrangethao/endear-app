@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import Footer from "../Footer/Footer";
 import Nav from "../Nav/Nav";
+import Carousel from "react-material-ui-carousel";
 import coupleImage from "../Images/couple.jpg";
 
 import "typeface-quicksand";
@@ -33,7 +34,7 @@ const customStyles = (theme) =>
       backgroundColor: "#786fa6",
       color: "#fff",
       margin: "5%",
-      padding: "20px",
+      padding: "15px",
       fontSize: "15px",
       fontFamily: "Quicksand",
       "&:hover": {
@@ -43,6 +44,12 @@ const customStyles = (theme) =>
     typography: {
       margin: "2% 0",
       fontFamily: "Quicksand",
+    },
+    font: {
+      fontFamily: "Pacifico",
+      fontSize: "15px",
+      textTransform: "lowercase",
+      marginLeft: "5px",
     },
   });
 
@@ -92,14 +99,18 @@ class LandingPage extends Component {
                 lacus, sed lobortis augue mi vel felis. Duis ultrices sapien at
                 est convallis congue.
               </Typography>
-
-              <Button
-                className={classes.btn}
-                color="primary"
-                onClick={this.onRegister}
-              >
-                Join Endear
-              </Button>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  className={classes.btn}
+                  color="primary"
+                  onClick={this.onRegister}
+                >
+                  J<span style={{ textTransform: "lowercase" }}>oin</span>
+                  <span className={classes.font}>
+                    <span style={{ textTransform: "uppercase" }}>E</span>ndear
+                  </span>
+                </Button>
+              </div>
             </Grid>
             <Grid item xs={6}>
               <img src={coupleImage} alt="couple" className={classes.image} />
