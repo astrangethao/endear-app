@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import LoginPage from "../LoginPage/LoginPage";
+import UserPage from "../UserPage/UserPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import NamePage from "../RegistrationPages/NamePage";
 import GenderPage from "../RegistrationPages/GenderPage";
@@ -45,7 +46,11 @@ const ProtectedRoute = (props) => {
   } else if (store.loginMode === "login") {
     // if they are not logged in, check the loginMode on Redux State
     // if the mode is 'login', show the LoginPage
-    ComponentToShow = LoginPage;
+    if (store.user.id) {
+      ComponentToShow = UserPage;
+    } else {
+      ComponentToShow = LoginPage;
+    }
   } else if (store.loginMode === "register") {
     // the the user is not logged in and the mode is not 'login'
     // show the RegisterPage

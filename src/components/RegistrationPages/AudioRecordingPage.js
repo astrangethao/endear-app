@@ -164,7 +164,7 @@ class AudioRecordingPage extends Component {
                 type="button"
                 className={classes.btn}
                 onClick={() => {
-                  this.props.dispatch({ type: "SET_TO_LOGIN_MODE" });
+                  this.props.history.push("/admin");
                 }}
               >
                 Login

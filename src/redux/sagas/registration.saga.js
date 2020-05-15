@@ -152,7 +152,7 @@ function* registerAudio(action) {
       },
     });
 
-    yield put({ type: "SET_TO_LOGIN_MODE" });
+    // yield put({ type: "SET_TO_LOGIN_MODE" });
   } catch (error) {
     console.log("Error with user photo registration:", error);
     yield put({ type: "REGISTRATION_FAILED" });
