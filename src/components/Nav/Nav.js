@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-// import LogOutButton from "../LogOutButton/LogOutButton";
+import LogOutButton from "../LogOutButton/LogOutButton";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import {
   AppBar,
@@ -22,13 +22,15 @@ const customStyles = (theme) =>
     title: {
       fontFamily: "Pacifico",
       flexGrow: 1,
-      fontSize: "30px",
+      fontSize: "45px",
       fontWeight: "700",
       display: "inline-block",
     },
     nav: {
       background: "#c44569",
       overflow: "hidden",
+      height: "100px",
+      justifyContent: "center",
     },
     nav_link: {
       fontFamily: "Quicksand",
@@ -37,11 +39,19 @@ const customStyles = (theme) =>
       textAlign: "center",
       padding: "24px 10px",
       textDecoration: "none",
-      fontSize: "15px",
+      fontSize: "18px",
     },
     nav_item: {
       display: "flex",
       flexDirection: "row",
+    },
+    btn: {
+      backgroundColor: "#c44569",
+      border: "none",
+      color: "#f2f2f2",
+      cursor: "pointer",
+      fontSize: "17px",
+      fontFamily: "Quicksand",
     },
   });
 
@@ -104,6 +114,10 @@ class Nav extends Component {
                   {this.state.loginLinkData.text}
                 </Link>
               </Typography>
+
+              {this.props.store.user.id && (
+                <LogOutButton className={classes.btn} />
+              )}
             </div>
           </Toolbar>
         </AppBar>

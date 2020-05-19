@@ -11,7 +11,10 @@ import {
 } from "@material-ui/core";
 import Footer from "../Footer/Footer";
 import Nav from "../Nav/Nav";
-import coupleImage from "../Images/couple.jpg";
+import Carousel from "react-material-ui-carousel";
+import coupleImageOne from "../Images/couple_1.jpeg";
+import coupleImageTwo from "../Images/couple_2.jpeg";
+import coupleImageThree from "../Images/couple_3.jpeg";
 
 import "typeface-quicksand";
 import "typeface-pacifico";
@@ -23,16 +26,19 @@ const customStyles = (theme) =>
     },
     body: {
       padding: "5px",
-      marginBottom: "3%",
+      marginBottom: "6%",
     },
     image: {
       maxWidth: "90%",
       padding: "5%",
     },
     btn: {
-      backgroundColor: "#e66767",
+      backgroundColor: "#786fa6",
       color: "#fff",
       margin: "5%",
+      width: "150px",
+      padding: "15px",
+      fontSize: "20px",
       fontFamily: "Quicksand",
       "&:hover": {
         background: "#cf6a87",
@@ -41,6 +47,19 @@ const customStyles = (theme) =>
     typography: {
       margin: "2% 0",
       fontFamily: "Quicksand",
+    },
+    font: {
+      fontFamily: "Pacifico",
+      fontSize: "20px",
+      textTransform: "lowercase",
+      marginLeft: "5px",
+    },
+    img: {
+      marginTop: "21px",
+      maxHeight: "570px",
+    },
+    item: {
+      textAlign: "center",
     },
   });
 
@@ -90,17 +109,43 @@ class LandingPage extends Component {
                 lacus, sed lobortis augue mi vel felis. Duis ultrices sapien at
                 est convallis congue.
               </Typography>
-
-              <Button
-                className={classes.btn}
-                color="primary"
-                onClick={this.onRegister}
-              >
-                Join Endear
-              </Button>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  className={classes.btn}
+                  color="primary"
+                  onClick={this.onRegister}
+                >
+                  J<span style={{ textTransform: "lowercase" }}>oin</span>
+                  <span className={classes.font}>
+                    <span style={{ textTransform: "uppercase" }}>E</span>ndear
+                  </span>
+                </Button>
+              </div>
             </Grid>
             <Grid item xs={6}>
-              <img src={coupleImage} alt="couple" className={classes.image} />
+              <Carousel indicators={false}>
+                <div className={classes.item}>
+                  <img
+                    className={classes.img}
+                    src={coupleImageOne}
+                    alt="couple_one"
+                  />
+                </div>
+                <div className={classes.item}>
+                  <img
+                    className={classes.img}
+                    src={coupleImageTwo}
+                    alt="couple_two"
+                  />
+                </div>
+                <div className={classes.item}>
+                  <img
+                    className={classes.img}
+                    src={coupleImageThree}
+                    alt="couple_three"
+                  />
+                </div>
+              </Carousel>
             </Grid>
           </Grid>
         </Container>

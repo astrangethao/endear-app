@@ -18,22 +18,41 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 router.get("/info", rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
   const userId = req.user.id;
-  console.log("USERID:", userId);
 
-  const queryText = `SELECT "user_account".username,  "gender".name as "gender", "location".city as "city", "location".zipcode as "zip_code", "user_photo".link as "user_photo"
+  const queryText = `SELECT "user_account".first_name, "user_account".last_name, "gender".name as "gender", "location".city as "city", "location".zipcode as "zip_code", "user_photo".link as "user_photo", "audio_clip".audio as "audio_link",
+  "interested_in_gender".gender_id as "gender_preference"
   FROM "user_account" 
     JOIN "location" ON "location".user_account_id = "user_account".id
     JOIN "gender" ON "gender".id = "user_account".gender_id
     JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id
-    WHERE "user_account".id = $1;`;
+    JOIN "interested_in_gender" ON "interested_in_gender".user_account_id = "user_account".id
+    JOIN "audio_clip" ON "audio_clip".user_account_id = "user_account".id
+    WHERE "user_account".id = $1;
+  `;
   pool
     .query(queryText, [userId])
     .then((response) => {
-      console.log(response.rows);
       res.send(response.rows);
     })
     .catch(() => res.sendStatus(500));
 });
+
+router.get("/options", rejectUnauthenticated, (req, res) => {
+  // const genderId = req.userDetails.gender_preference;
+  queryText = `SELECT "user_account".id as "user_id", "user_account".first_name, "user_account".last_name, "user_account".details, "user_account".gender_id, "user_account".dob, "user_account".phone_number, "user_photo".link, "audio_clip".audio,"location".city, "location".zipcode FROM "user_account"
+  JOIN "user_photo" ON "user_photo".user_account_id = "user_account".id
+  JOIN "location" ON "location".user_account_id = "user_account".id
+  JOIN "audio_clip" ON "audio_clip".user_account_id = "user_account".id
+  ORDER BY "user_account".gender_id;`;
+
+  pool
+    .query(queryText)
+    .then((response) => {
+      res.send(response.rows);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
@@ -86,7 +105,6 @@ router.post("/interest/:id", (req, res, next) => {
 router.post("/photos/:id", (req, res, next) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log("INTEREST POST:", userId, newUser);
 
   const queryText =
     'INSERT INTO "user_photo" (user_account_id, link) VALUES ($1, $2) RETURNING id';
@@ -94,6 +112,38 @@ router.post("/photos/:id", (req, res, next) => {
     .query(queryText, [userId, newUser.link])
     .then((response) => {
       res.send(response.rows[0]);
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.post("/audio-link/:id", (req, res, next) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+
+  const queryText =
+    'INSERT INTO "audio_clip" (audio, user_account_id) VALUES ($1, $2) RETURNING id';
+  pool
+    .query(queryText, [newUser.audio, userId])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch(() => res.sendStatus(500));
+});
+
+router.post("/matches", (req, res, next) => {
+  const match = req.body;
+
+  const queryText =
+    'INSERT INTO "matches" (user_1_id, match_user_1, user_2_id, match_user_2) VALUES ($1, $2, $3, $4) RETURNING id';
+  pool
+    .query(queryText, [
+      match.user_1_id,
+      match.match_user_1,
+      match.user_2_id,
+      match.match_user_2,
+    ])
+    .then((response) => {
       res.sendStatus(201);
     })
     .catch(() => res.sendStatus(500));
@@ -162,7 +212,6 @@ router.put("/dob/:id", (req, res) => {
 router.put("/phone/:id", (req, res) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log(newUser.phone_number);
 
   const queryText = `UPDATE "user_account" SET "phone_number"= $1 WHERE "id" = $2;`;
 
@@ -178,7 +227,6 @@ router.put("/phone/:id", (req, res) => {
 router.put("/details/:id", (req, res) => {
   const userId = req.params.id;
   const newUser = req.body;
-  console.log(newUser.details);
 
   const queryText = `UPDATE "user_account" SET "details"= $1 WHERE "id" = $2;`;
 
@@ -191,4 +239,18 @@ router.put("/details/:id", (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  const userId = req.params.id;
+  const newUser = req.body;
+
+  const queryText = `UPDATE "user_account" SET "details"= $1, "phone_number"=$2 WHERE "id" = $3;`;
+
+  pool
+    .query(queryText, [newUser.details, newUser.phone_number, userId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.warn(err);
+      res.sendStatus(500);
+    });
+});
 module.exports = router;

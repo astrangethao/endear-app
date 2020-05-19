@@ -35,10 +35,8 @@ function* fetchUserDetails() {
     // allow the server session to recognize the user
     // If a user is logged in, this will return their information
     // from the server session (req.user)
-    yield console.log("FETCH USER DETAILS:");
 
     const response = yield axios.get("api/user/info", config);
-    yield console.log("FETCH USER DETAILS:", response.data);
 
     // now that the session has given us a user object
     // with an id and username set the client-side user object to let
@@ -49,9 +47,24 @@ function* fetchUserDetails() {
   }
 }
 
+function* updateProfile(action) {
+  try {
+    yield axios.put(`/api/user/${action.payload.id}`, {
+      details: action.payload.updatedProfile.details,
+      phone_number: action.payload.updatedProfile.phone_number,
+    });
+
+    yield put({ type: "FETCH_USER" });
+    yield put({ type: "FETCH_USER_DETAILS" });
+  } catch (error) {
+    console.warn(`Error with update profile`, error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("FETCH_USER_DETAILS", fetchUserDetails);
+  yield takeLatest("UPDATE_PROFILE", updateProfile);
 }
 
 export default userSaga;
