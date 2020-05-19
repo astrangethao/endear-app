@@ -1,49 +1,129 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
-import mapStoreToProps from '../../redux/mapStoreToProps';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import LogOutButton from "../LogOutButton/LogOutButton";
+import mapStoreToProps from "../../redux/mapStoreToProps";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  withStyles,
+  createStyles,
+} from "@material-ui/core";
 
-const Nav = (props) => {
-  let loginLinkData = {
-    path: '/home',
-    text: 'Login / Register',
+import "typeface-pacifico";
+import "typeface-quicksand";
+
+const customStyles = (theme) =>
+  createStyles({
+    root: {
+      flexGrow: "1",
+    },
+    title: {
+      fontFamily: "Pacifico",
+      flexGrow: 1,
+      fontSize: "45px",
+      fontWeight: "700",
+      display: "inline-block",
+    },
+    nav: {
+      background: "#c44569",
+      overflow: "hidden",
+      height: "100px",
+      justifyContent: "center",
+    },
+    nav_link: {
+      fontFamily: "Quicksand",
+      color: "#f2f2f2",
+      backgroundColor: "#c44569",
+      textAlign: "center",
+      padding: "24px 10px",
+      textDecoration: "none",
+      fontSize: "18px",
+    },
+    nav_item: {
+      display: "flex",
+      flexDirection: "row",
+    },
+    btn: {
+      backgroundColor: "#c44569",
+      border: "none",
+      color: "#f2f2f2",
+      cursor: "pointer",
+      fontSize: "17px",
+      fontFamily: "Quicksand",
+    },
+  });
+
+class Nav extends Component {
+  state = {
+    loginLinkData: {
+      path: "/login",
+      text: "Sign In",
+    },
   };
 
-  if (props.store.user.id != null) {
-    loginLinkData.path = '/admin';
-    loginLinkData.text = 'Home';
-  }
+  render() {
+    if (this.props.store.user.id != null) {
+      this.state.loginLinkData.path = "/admin";
+      this.state.loginLinkData.text = "Profile";
+    }
 
-  return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
-      </Link>
-      <div className="nav-right">
-        <Link className="nav-link" to={loginLinkData.path}>
-          {/* Show this link if they are logged in or not,
-          but call this link 'Home' if they are logged in,
-          and call this link 'Login / Register' if they are not */}
-          {loginLinkData.text}
-        </Link>
-        {/* Show the link to the info page and the logout button if the user is logged in */}
-        {props.store.user.id && (
-          <>
-            <Link className="nav-link" to="/info">
-              Info Page
-            </Link>
-            <LogOutButton className="nav-link"/>
-          </>
-        )}
-        {/* Always show this link since the about page is not protected */}
-        <Link className="nav-link" to="/about">
-          About
-        </Link>
+    const { classes } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" className={classes.nav}>
+          <Toolbar>
+            <Typography variant="h4" component="h1" className={classes.title}>
+              <Link to="/home">Endear</Link>
+            </Typography>
+
+            {/* Show the link to the info page and the logout button if the user is logged in */}
+
+            <div className={classes.nav_item}>
+              {this.props.store.user.id && (
+                <Typography variant="body1" component="p">
+                  <Link className={classes.nav_link} to="/match">
+                    Matches
+                  </Link>
+                </Typography>
+              )}
+
+              {this.props.store.user.id && (
+                <Typography variant="body1" component="p">
+                  <Link className={classes.nav_link} to="/likes">
+                    Likes
+                  </Link>
+                </Typography>
+              )}
+
+              {this.props.store.user.id && (
+                <Typography variant="body1" component="p">
+                  <Link className={classes.nav_link} to="/messages">
+                    Messages
+                  </Link>
+                </Typography>
+              )}
+
+              <Typography variant="body1" component="p">
+                <Link
+                  className={classes.nav_link}
+                  to={this.state.loginLinkData.path}
+                >
+                  {this.state.loginLinkData.text}
+                </Link>
+              </Typography>
+
+              {this.props.store.user.id && (
+                <LogOutButton className={classes.btn} />
+              )}
+            </div>
+          </Toolbar>
+        </AppBar>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default connect(mapStoreToProps)(Nav);
+export default withStyles(customStyles)(connect(mapStoreToProps)(Nav));
