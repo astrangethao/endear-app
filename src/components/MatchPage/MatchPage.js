@@ -45,7 +45,7 @@ const customStyles = (theme) =>
       margin: "30px",
     },
     carousel: {
-      margin: "10%",
+      margin: "8.4%",
     },
     container: {
       display: "flex",
@@ -59,6 +59,11 @@ const customStyles = (theme) =>
     icon_btn: {
       color: "white",
       margin: "10px",
+    },
+    center: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
     },
   });
 
@@ -139,30 +144,34 @@ class MatchPage extends Component {
                   className={classes.card}
                   style={{ background: this.state.bgColor }}
                 >
-                  <CardHeader
-                    className={classes.font}
-                    title={item.first_name}
-                    subheader={item.city}
-                  />
-                  <CardContent>
-                    <ReactAudioPlayer
-                      src={item.audio}
-                      autoPlay={false}
-                      controls
+                  <div className={classes.center}>
+                    <CardHeader
+                      className={classes.font}
+                      title={item.first_name}
+                      subheader={item.city}
                     />
-                  </CardContent>
-                  <IconButton
-                    className={classes.icon_btn}
-                    onClick={this.handleMatch("pass", item.user_id)}
-                  >
-                    <NotInterestedIcon />
-                  </IconButton>
-                  <IconButton
-                    className={classes.icon_btn}
-                    onClick={this.handleMatch("like", item.user_id)}
-                  >
-                    <FavoriteIcon />
-                  </IconButton>
+                    <CardContent>
+                      <ReactAudioPlayer
+                        src={item.audio}
+                        autoPlay={false}
+                        controls
+                      />
+                    </CardContent>
+                    <div>
+                      <IconButton
+                        className={classes.icon_btn}
+                        onClick={this.handleMatch("pass", item.user_id)}
+                      >
+                        <NotInterestedIcon />
+                      </IconButton>
+                      <IconButton
+                        className={classes.icon_btn}
+                        onClick={this.handleMatch("like", item.user_id)}
+                      >
+                        <FavoriteIcon />
+                      </IconButton>
+                    </div>
+                  </div>
                 </Card>
               );
             })}

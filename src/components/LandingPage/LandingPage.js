@@ -38,7 +38,7 @@ const customStyles = (theme) =>
       margin: "5%",
       width: "150px",
       padding: "15px",
-      fontSize: "15px",
+      fontSize: "20px",
       fontFamily: "Quicksand",
       "&:hover": {
         background: "#cf6a87",
@@ -50,7 +50,7 @@ const customStyles = (theme) =>
     },
     font: {
       fontFamily: "Pacifico",
-      fontSize: "15px",
+      fontSize: "20px",
       textTransform: "lowercase",
       marginLeft: "5px",
     },
